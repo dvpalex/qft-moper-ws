@@ -4,10 +4,16 @@
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:p="http://primefaces.org/ui">
 		
+		
+
+		<f:view>
+			Teste
+		</f:view>
+		
 		<p:panel>
 			<h:form id="frmpfisica" header="Pessoa Fisica" >
 					<p:outputLabel value="Nome"></p:outputLabel>
-					<p:inputText value="#{PfisicaBean.PFisica.nome}"></p:inputText>
+					<p:inputText value="#{pfisicabean.pfisica.nome}"></p:inputText>
 					<p:commandButton value="Salvar" action="#{PFsiciaBean.salvar}" />
 					<p:commandButton value="Limpar" type="reset" />
 			</h:form>		
