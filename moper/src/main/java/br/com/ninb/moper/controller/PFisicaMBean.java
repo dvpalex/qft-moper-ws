@@ -4,20 +4,26 @@ import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.ninb.moper.bll.PFisicaBll;
 import br.com.ninb.moper.model.PFisica;
 
-@ManagedBean
+@ManagedBean(name="PFisicaMBean")
 @SessionScoped
-public class PFisicaBean implements Serializable {
+public class PFisicaMBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6157873495860169047L;
 	private PFisica pfisica;
 	
-	public PFisicaBean(){
+	public PFisicaMBean(){
+		this.pfisica = new PFisica();
+		System.out.println("Bean PFisica Acessado");
 	}
 	
 	public PFisica getPfisica() {
