@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.ninb.moper.model.*;
 
-public interface IGenericDal<E extends Entity> {
+public interface IGenericDal<E extends Entity, I> {
 
 	public long save(E entity);
 	public void update(E entity);

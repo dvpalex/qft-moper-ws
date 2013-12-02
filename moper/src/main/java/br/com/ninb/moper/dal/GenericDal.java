@@ -5,8 +5,13 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions; 
 import br.com.ninb.moper.model.*;
 
-public class GenericDal<E extends Entity> implements IGenericDal<E> {
+public class GenericDal<E extends Entity, I> implements IGenericDal<E, I> {
 
+	
+	public E getById(I id ){
+		return null;
+	}
+	
 	public long save(E entity) {
 		// TODO Auto-generated method stub
 		return 0;

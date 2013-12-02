@@ -3,6 +3,10 @@ package br.com.ninb.moper.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public abstract class Entity implements Serializable {
 
 	
@@ -11,7 +15,10 @@ public abstract class Entity implements Serializable {
 
 	public abstract long getId();
 	
+	
 	private Date dtaInclusao;
+	
+	@Column
 	private long idUser;
 	
 	public Date getDtaInclusao() {
