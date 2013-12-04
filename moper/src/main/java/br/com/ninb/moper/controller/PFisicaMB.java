@@ -11,18 +11,17 @@ import javax.faces.context.FacesContext;
 import br.com.ninb.moper.bll.PFisicaBll;
 import br.com.ninb.moper.model.PFisica;
 
-@ManagedBean(name="PFisicaMBean")
+@ManagedBean
 @SessionScoped
-public class PFisicaMBean implements Serializable {
+public class PFisicaMB implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6157873495860169047L;
-	private PFisica pfisica;
+	private PFisica pfisica = new PFisica();
 	
-	public PFisicaMBean(){
-		this.pfisica = new PFisica();
+	public PFisicaMB(){
 		System.out.println("Bean PFisica Acessado");
 	}
 	

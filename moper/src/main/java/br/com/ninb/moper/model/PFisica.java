@@ -53,6 +53,8 @@ public class PFisica extends Pessoa implements Serializable {
 	}
 	public void setDtaNascimento(Date dtaNascimento) {
 		this.dtaNascimento = dtaNascimento;
+		
+	
 	}
 	
 	

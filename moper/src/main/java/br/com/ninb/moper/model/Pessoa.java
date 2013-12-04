@@ -6,10 +6,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public abstract class Pessoa extends Entity {
+public  class Pessoa extends Entity {
 
 	private static final long serialVersionUID = -4890518737027780299L;
 
+	public Pessoa(){};
+	
+	
 	@Id
 	@GeneratedValue
 	private long Id;
@@ -18,6 +21,9 @@ public abstract class Pessoa extends Entity {
 	@Column(nullable=false)
 	@Enumerated(EnumType.ORDINAL)
 	private TipoPessoaEnum tipoPessoa;
+	
+	private String propriedadeTeste = "Propriedade Teste para :" + this.getClass().getName();
+	
 
 	public long getId() {
 		return Id;
@@ -34,6 +40,16 @@ public abstract class Pessoa extends Entity {
 	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
+
+	public String getPropriedadeTeste() {
+		return propriedadeTeste;
+	}
+
+	public void setPropriedadeTeste(String propriedadeTeste) {
+		this.propriedadeTeste = propriedadeTeste;
+	}
+	
+	
 	
 	
 }

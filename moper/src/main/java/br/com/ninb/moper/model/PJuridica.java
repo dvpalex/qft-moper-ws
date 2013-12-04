@@ -1,5 +1,9 @@
 package br.com.ninb.moper.model;
 
-public class PJuridica {
+import java.io.Serializable;
+
+public class PJuridica extends Pessoa implements Serializable {
+
+	private static final long serialVersionUID = -659435538669713935L;
 
 }

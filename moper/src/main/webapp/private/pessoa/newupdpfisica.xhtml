@@ -5,13 +5,11 @@
 		xmlns:p="http://primefaces.org/ui">
 		
 		
-		<p:spinner />
-		
-		<p:panel>
-			<h:form id="frmpfisica" header="Pessoa Fisica" >
+		<p:panel header="Pessoa Fisica">
+			<h:form id="form">
 					<p:outputLabel value="Nome"></p:outputLabel>
-					<p:inputText id="nome" value="#{PFisicaMBean.pfisica.nome}"></p:inputText>
-					<p:commandButton value="Salvar" action="#{PFisicaMBean.salvar()}" />
+					<p:inputText id="nome" value="#{pFisicaMB.pfisica.nome}"></p:inputText>
+					<p:commandButton value="Salvar" action="#{pFisicaMB.salvar}" />
 					<p:commandButton value="Limpar" type="reset" />
 			</h:form>		
 					
