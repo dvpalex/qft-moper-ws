@@ -3,7 +3,9 @@ package br.com.ninb.moper.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.annotation.Generated;
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -13,14 +15,21 @@ public abstract class Entity implements Serializable {
 	
 	private static final long serialVersionUID = 7108760821263160996L;
 
-	public abstract long getId();
 	
+	@Id
+	private long id;
 	
 	private Date dtaInclusao;
 	
 	@Column
 	private long idUser;
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public Date getDtaInclusao() {
 		return dtaInclusao;
 	}
