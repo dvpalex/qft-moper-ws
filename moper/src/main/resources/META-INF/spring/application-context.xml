@@ -1,0 +1,65 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+                           http://www.springframework.org/schema/util 
+                           http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+        <!-- Spring context  -->
+        <context:spring-configured />
+
+        <!-- Scan packages for spring annotations -->
+        <context:component-scan base-package="br.com.ninb.moper" />
+
+        <!-- Database datasource configuration -->
+        <bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+                <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+                <property name="url" value="jdbc:sqlserver://svrws.acagile.com;instanceName=SQL2008R2;databaseName=dicionariodados;portNumber=1433" />
+                <property name="username" value="sa" />
+                <property name="password" value="@@Espaco1" />
+                <property name="maxActive" value="5" />
+                <property name="maxIdle" value="10" />
+                <property name="maxWait" value="10" />
+                <property name="removeAbandoned" value="true" />
+                <property name="removeAbandonedTimeout" value="60000" />
+                <property name="testOnReturn" value="true" />
+                <property name="testOnBorrow" value="true" />
+                <property name="testWhileIdle" value="true" />
+                <property name="defaultAutoCommit" value="false" />
+        </bean>
+
+        <!-- Creates the JPA entityManagerFactory, sets the datasource 
+                to be used and defines a persistence unit name -->
+        <bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        
+                <property name="persistenceUnitName" value="mopermssql_pu" />
+                <property name="dataSource" ref="dataSource" />
+
+        </bean>
+        
+        <!-- Spring can manage transactions very easy -->
+        <bean name="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+                <property name="entityManagerFactory" ref="entityManagerFactory" />
+        </bean>
+
+        <!-- And we define to use aspects to manage transactions. -->
+        <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
+
+        <!-- Since spring 3.0, persistence exceptions requires a processor to handle persistence error messages -->
+        <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+        
+        <!-- Aspect 
+        <bean id="auditAspect" class="br.com.cardif.etl.util.AuditAspect" />
+        --> 
+                
+        <aop:aspectj-autoproxy/>
+        
+</beans>
