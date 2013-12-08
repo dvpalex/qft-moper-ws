@@ -40,7 +40,7 @@ public class LayoutVersion implements Serializable{
 	@Column(name = "VERSION", nullable = false)
 	private long version;
 	
-	@Column(name = "DESCRIPTION")
+	@Column(name = "DESCRIPTION", length = 80)
 	private String description;
 	
 	@ManyToOne

@@ -28,7 +28,7 @@ public class RowType implements Serializable {
     @Column(name = "ROWTYPE_ID")
 	private long rowTypeId;
 	
-	@Column(name = "DESCRIPTION")
+	@Column(name = "DESCRIPTION", length = 80)
 	private String description;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rowType")
@@ -40,12 +40,9 @@ public class RowType implements Serializable {
 		
 	}
 	
-	
-	
 	public List<Layout> getLayouts() {
 		return layouts;
 	}
-
 
 
 	public void setLayouts(List<Layout> layouts) {

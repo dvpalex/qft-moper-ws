@@ -27,7 +27,7 @@ public class LayoutType implements Serializable{
     @Column(name = "LAYOUTYPE_ID")
 	private long  layoutTypeId;
 	
-    @Column(name = "DESCRIPTION", nullable = false)
+    @Column(name = "DESCRIPTION", nullable = false, length = 80)
 	private String description;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")

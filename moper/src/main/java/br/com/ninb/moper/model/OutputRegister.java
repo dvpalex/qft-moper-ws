@@ -43,7 +43,7 @@ public class OutputRegister implements Serializable {
 	@Column(name = "STATUS", nullable = false)
 	private boolean status;
 	
-	@Column(name = "EVENT", nullable = true)
+	@Column(name = "EVENT", nullable = true, length = 80)
 	private String event;
 	
 	public OutputRegister(){

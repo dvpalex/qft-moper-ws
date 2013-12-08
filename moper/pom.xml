@@ -9,7 +9,17 @@
   <url>http://maven.apache.org</url>
  <properties>
 		<project.build.javaVersion>1.7</project.build.javaVersion>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.tests.skip>true</project.tests.skip>
+        <project.build.downloadSources>false</project.build.downloadSources>
+        <project.build.downloadJavadocs>false</project.build.downloadJavadocs>
+        <slf4j.version>1.6.4</slf4j.version>
+        <spring.version>3.1.4.RELEASE</spring.version>
+        <aspectj.version>1.6.11</aspectj.version>
+        <spring.batch.version>2.2.0.RELEASE</spring.batch.version>
+        <spring.security.version>3.1.4.RELEASE</spring.security.version>
+        <quartz.version>1.8.6</quartz.version>
+        <database.persistenceUnit>cardif-etl-PU</database.persistenceUnit>
 	</properties>
  
  <repositories>
@@ -141,14 +151,160 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
+		<!-- JODBC -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.6</version>
 		</dependency>
-                     
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc4</artifactId>
+			<version>4.0</version>
+		</dependency>
 		
+		   <!-- AspectJ -->
+                <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>${aspectj.version}</version>
+                </dependency>
+                <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                </dependency>
+        
+        <!-- Spring -->
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-core</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>                
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-test</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-context</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-orm</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-tx</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-webmvc</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-web</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-jdbc</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-beans</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-aop</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-expression</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-aspects</artifactId>
+                      <version>${spring.version}</version>
+              </dependency>
+
+              <!-- Spring Security -->
+              <dependency>
+                      <groupId>org.springframework.security</groupId>
+                      <artifactId>spring-security-core</artifactId>
+                      <version>${spring.security.version}</version>
+              </dependency>
+              <dependency>
+                      <groupId>org.springframework.security</groupId>
+                      <artifactId>spring-security-config</artifactId>
+                      <version>${spring.security.version}</version>
+              </dependency>
+              <dependency>
+                  <groupId>org.springframework.security</groupId>
+                  <artifactId>spring-security-web</artifactId>
+                      <version>${spring.security.version}</version>
+              </dependency>
+              <dependency>
+                  <groupId>org.springframework.security</groupId>
+                  <artifactId>spring-security-aspects</artifactId>
+                  <version>${spring.security.version}</version>
+              </dependency>                
+              <dependency>
+              		<groupId>org.springframework.security</groupId>
+         			<artifactId>spring-security-ldap</artifactId>
+         			<version>${spring.security.version}</version>
+				</dependency>
+ 		
   </dependencies>
+	 <profiles>
+			<profile>
+                
+                        <!-- Senior -->
+                        <id>dicionario</id>
+                        <activation>
+                                <activeByDefault>true</activeByDefault>
+                                <property>
+                                        <name>db</name>
+                                        <value>desenv</value>
+                                </property>
+                        </activation>
+                        <properties>
+                        
+                                <!-- Database configuration -->                        
+                                <database.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</database.driver>
+                                <database.url>jdbc:sqlserver://10.200.7.17;instanceName=SQL2008R2;databaseName=cardif-etl;portNumber=53955</database.url>
+                                <database.username>SA</database.username>
+                                <database.password>Senior147</database.password>
+                                <database.dialect>org.hibernate.dialect.SQLServerDialect</database.dialect>
+                                <database.hbm2ddl>none</database.hbm2ddl>
+                                
+                                <!-- Email configuration -->
+                                <mail.hostname>smtp.googlemail.com</mail.hostname>
+                                <mail.smtp.port>587</mail.smtp.port>
+                                <mail.start.tls.required>true</mail.start.tls.required>
+                                <mail.from>email.homolog@gmail.com</mail.from>
+                                <mail.username>email.homolog@gmail.com</mail.username>
+                                <mail.password>email.homolog1!</mail.password>
+
+                                <!-- Physical Paths configuration -->
+                                <temporaryPath>/apps/cardif-etl-test/extratores/temp/</temporaryPath>        
+                                <storedPath>/apps/cardif-etl-test/extratores/stored/</storedPath>
+                                <libpath>/apps/cardif-etl-test/extratores/libs</libpath>                                        
+
+                        </properties>
+                        
+                </profile>
+                	 
+	 </profiles>
   <build>
     <finalName>moper</finalName>
     

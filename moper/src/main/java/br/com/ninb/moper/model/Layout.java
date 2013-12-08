@@ -37,7 +37,7 @@ public class Layout implements Serializable {
 	@Column(name = "TYPECOL", nullable = false)
 	private TypeColEnum typeCol;
 	
-	@Column(name = "DESCRIPTION", nullable = false)
+	@Column(name = "DESCRIPTION", nullable = false, length = 80)
 	private String description;
 	
 	@ManyToOne
@@ -65,8 +65,6 @@ public class Layout implements Serializable {
 	public void setLayoutId(long layoutId) {
 		this.layoutId = layoutId;
 	}
-
-	
 	
 	public long getIndex() {
 		return index;
