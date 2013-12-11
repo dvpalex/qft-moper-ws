@@ -5,8 +5,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-public  class Pessoa extends Entity {
+@Entity
+@Inheritance ( strategy = InheritanceType . JOINED )
+public  class Pessoa extends EntityBase {
 
 	private static final long serialVersionUID = -4890518737027780299L;
 

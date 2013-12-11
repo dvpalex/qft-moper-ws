@@ -1,5 +1,6 @@
 package br.com.ninb.moper.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -16,9 +17,15 @@ import static br.com.ninb.moper.util.JSFUtils.push;
 @ManagedBean(name="LayoutBean")
 @SessionScoped
 @Component
-public class LayoutBean {
+public class LayoutBean implements Serializable {
 
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7492988458428054716L;
+
 	protected List<Layout> list;
 	
 	@Autowired
@@ -28,7 +35,7 @@ public class LayoutBean {
 	public void list(){
 		list = service.list();
 		push("/pages/private/layoutlist/list");
-		
+		System.out.println("Acessado");
 
 	}
 	

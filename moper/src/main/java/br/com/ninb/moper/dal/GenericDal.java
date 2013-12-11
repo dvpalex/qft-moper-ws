@@ -5,7 +5,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions; 
 import br.com.ninb.moper.model.*;
 
-public class GenericDal<E extends Entity, I> implements IGenericDal<E, I> {
+public class GenericDal<E extends EntityBase, I> implements IGenericDal<E, I> {
 
 	
 	public E getById(I id ){

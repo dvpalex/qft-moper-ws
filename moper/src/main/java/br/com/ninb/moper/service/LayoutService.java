@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Configurable;
@@ -14,18 +12,13 @@ import org.springframework.stereotype.Component;
 import br.com.ninb.moper.model.Layout;
 
 
-@NamedQueries({
-	@NamedQuery(name="lstLayout", query= ""
-				
-			)
-})
 
 
-@Configurable
-@Component
+//@Configurable
+//@Component
 public class LayoutService {
 
-	@PersistenceContext
+	//@PersistenceContext
 	protected  EntityManager em;
 	
 	

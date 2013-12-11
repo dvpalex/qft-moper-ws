@@ -48,11 +48,9 @@ public class LayoutType implements Serializable{
 		return outputRegisters;
 	}
 
-
 	public void setOutputRegisters(List<OutputRegister> outputRegisters) {
 		this.outputRegisters = outputRegisters;
 	}
-
 
 	public long getLayoutTypeId() {
 		return layoutTypeId;

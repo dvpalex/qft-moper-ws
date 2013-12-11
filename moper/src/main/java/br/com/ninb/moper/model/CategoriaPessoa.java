@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.ManyToMany;
 
-public class CategoriaPessoa extends Entity {
+public class CategoriaPessoa extends EntityBase {
 
 	/*
 	 * Unidade Corporativa

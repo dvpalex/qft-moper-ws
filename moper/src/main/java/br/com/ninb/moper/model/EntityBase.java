@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-public abstract class Entity implements Serializable {
+public abstract class EntityBase implements Serializable {
 
 	
 	
@@ -60,7 +60,7 @@ public abstract class Entity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Entity other = (Entity) obj;
+		EntityBase other = (EntityBase) obj;
 		if (dtaInclusao == null) {
 			if (other.dtaInclusao != null)
 				return false;
