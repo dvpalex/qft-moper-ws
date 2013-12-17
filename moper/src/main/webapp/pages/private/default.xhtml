@@ -8,9 +8,13 @@
 
 <ui:composition template="/templates/app.xhtml">
 	
-	<p:outputPanel id="content">
-				<ui:include src="#{navigationBean.currentPage}.xhtml" />
-	</p:outputPanel>
+	
+	<ui:define name="content">
+			
+		<p:outputPanel id="content">
+			<ui:include src="#{navigationBean.currentPage}.xhtml" />
+		</p:outputPanel>
+	</ui:define>
 	
 </ui:composition>
 </html>

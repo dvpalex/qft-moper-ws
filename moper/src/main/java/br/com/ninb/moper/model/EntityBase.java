@@ -5,10 +5,12 @@ import java.util.Date;
 
 import javax.annotation.Generated;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
 public abstract class EntityBase implements Serializable {
 
 	

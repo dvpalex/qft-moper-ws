@@ -18,8 +18,10 @@
 
         <!-- Scan packages for spring annotations -->
         <context:component-scan base-package="br.com.ninb.moper" />
-
+        
+        
         <!-- Database datasource configuration -->
+        
         <bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
                 <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
                 <property name="url" value="jdbc:sqlserver://svrws.acagile.com;instanceName=SQL2008R2;databaseName=dicionariodados;portNumber=1433" />
@@ -35,13 +37,29 @@
                 <property name="testWhileIdle" value="true" />
                 <property name="defaultAutoCommit" value="false" />
         </bean>
-
+		
+		<bean name="dataSourceMySql" class="org.apache.commons.dbcp.BasicDataSource">
+                <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://server.acagile.com:3306/moper_dsv" />
+                <property name="username" value="root" />
+                <property name="password" value="@@Espaco1" />
+                <property name="maxActive" value="5" />
+                <property name="maxIdle" value="10" />
+                <property name="maxWait" value="10" />
+                <property name="removeAbandoned" value="true" />
+                <property name="removeAbandonedTimeout" value="60000" />
+                <property name="testOnReturn" value="true" />
+                <property name="testOnBorrow" value="true" />
+                <property name="testWhileIdle" value="true" />
+                <property name="defaultAutoCommit" value="false" />
+        </bean>
+		
         <!-- Creates the JPA entityManagerFactory, sets the datasource 
                 to be used and defines a persistence unit name -->
         <bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         
-                <property name="persistenceUnitName" value="mopermssql_pu" />
-                <property name="dataSource" ref="dataSource" />
+                <property name="persistenceUnitName" value="mopermysql_pu" />
+                <property name="dataSource" ref="dataSourceMySql" />
 
         </bean>
         

@@ -1,6 +1,7 @@
 package br.com.ninb.moper.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -14,7 +15,7 @@ import br.com.ninb.moper.service.LayoutService;
 import static br.com.ninb.moper.util.JSFUtils.push;
 
 
-@ManagedBean(name="LayoutBean")
+@ManagedBean(name="layoutBean")
 @SessionScoped
 @Component
 public class LayoutBean implements Serializable {
@@ -33,8 +34,16 @@ public class LayoutBean implements Serializable {
 	
 	
 	public void list(){
-		list = service.list();
+		
 		push("/pages/private/layoutlist/list");
+		
+		
+		List<Layout> layouts = new ArrayList<Layout>();
+		
+		Layout layout = new Layout();
+		layout.setDescription("Layout Teste");
+		layouts.add(layout);
+		list = layouts;
 		System.out.println("Acessado");
 
 	}

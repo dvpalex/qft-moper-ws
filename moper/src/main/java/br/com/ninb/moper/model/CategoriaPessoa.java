@@ -20,7 +20,7 @@ public class CategoriaPessoa extends EntityBase {
 
 	private String descricao;
 	
-	@ManyToMany	
+	//@ManyToMany	
 	private List<Pessoa> pessoas;
 	
 	public CategoriaPessoa(){
