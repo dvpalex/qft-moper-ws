@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 
-@Entity
-@Table(name="pessoa")
+//@Entity
+//@Table(name="pessoa")
 public class PFisica extends Pessoa implements Serializable {
 
 	

@@ -15,9 +15,9 @@ import br.com.ninb.moper.service.LayoutService;
 import static br.com.ninb.moper.util.JSFUtils.push;
 
 
-@ManagedBean(name="layoutBean")
-@SessionScoped
-@Component
+//@ManagedBean(name="layoutBean")
+//@SessionScoped
+//@Component
 public class LayoutBean implements Serializable {
 
 	
@@ -29,13 +29,13 @@ public class LayoutBean implements Serializable {
 
 	protected List<Layout> list;
 	
-	@Autowired
+	//@Autowired
 	protected LayoutService service;
 	
 	
 	public void list(){
 		
-		push("/pages/private/layoutlist/list");
+		push("/pages/private/layout/list");
 		
 		
 		List<Layout> layouts = new ArrayList<Layout>();

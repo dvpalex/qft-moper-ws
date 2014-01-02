@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/app.xhtml">
+<h:head>
+  <h:title>
+  	
+  </h:title>
+  <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
+  <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+</h:head>
+<h:body>
+	<header class="ui-widget ui-widget-header">
+		<h1>Dicionário de dados</h1>
+	</header>
+	<nav>
+		<h:form>
+			<p:tieredMenu  styleClass="menu" autoDisplay="true" model="#{menuBean.model}"/>
+		</h:form>
+	</nav>
 	
-	
-	<ui:define name="content">
-			
-		<p:outputPanel id="content">
+	<div id="content">
+		<p:outputPanel id="contentform">
 			<ui:include src="#{navigationBean.currentPage}.xhtml" />
 		</p:outputPanel>
-	</ui:define>
-	
-</ui:composition>
+	</div>
+</h:body>
+
 </html>

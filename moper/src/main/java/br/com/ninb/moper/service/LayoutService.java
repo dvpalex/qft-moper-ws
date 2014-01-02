@@ -11,9 +11,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.ninb.moper.model.Layout;
 
-
-
-
 //@Configurable
 //@Component
 public class LayoutService {

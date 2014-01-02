@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://br.com.cardif.etl/facelets">
+
+<h:body>
+				<h:form>
+					<p:dataTable var="obj" value="#{layoutTypeBean.list}">
+						
+						<p:column headerText="Descricao">  
+            				<h:outputText value="#{obj.layoutTypeId}"></h:outputText>
+        				</p:column>
+						<p:column headerText="Descricao">  
+            				<h:outputText value="#{obj.description}"></h:outputText>
+        				</p:column>  
+					
+					</p:dataTable>		
+						<p:commandButton id="add" value="Adicionar"
+							icon="ui-icon-plus"
+							action="#{layoutTypeBean.add}"
+							update=":contentform"
+							 />
+					
+		
+				</h:form>
+	
+						
+	
+</h:body> 
+</ui:composition>         

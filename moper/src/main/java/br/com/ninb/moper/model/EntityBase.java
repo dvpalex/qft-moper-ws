@@ -10,28 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+
 public abstract class EntityBase implements Serializable {
 
-	
-	
 	private static final long serialVersionUID = 7108760821263160996L;
 
-	
-	@Id
-	private long id;
-	
 	private Date dtaInclusao;
 	
 	@Column
 	private long idUser;
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public Date getDtaInclusao() {
 		return dtaInclusao;
 	}
@@ -45,32 +33,4 @@ public abstract class EntityBase implements Serializable {
 		this.idUser = idUser;
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((dtaInclusao == null) ? 0 : dtaInclusao.hashCode());
-		result = prime * result + (int) (idUser ^ (idUser >>> 32));
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EntityBase other = (EntityBase) obj;
-		if (dtaInclusao == null) {
-			if (other.dtaInclusao != null)
-				return false;
-		} else if (!dtaInclusao.equals(other.dtaInclusao))
-			return false;
-		if (idUser != other.idUser)
-			return false;
-		return true;
-	}
-
 }

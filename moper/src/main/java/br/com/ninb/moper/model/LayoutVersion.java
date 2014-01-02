@@ -21,8 +21,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-@Entity
-@Table(name="LAYOUTVERSION")
+//@Entity
+//@Table(name="LAYOUTVERSION")
 public class LayoutVersion implements Serializable{
 
 	

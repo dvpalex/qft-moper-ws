@@ -16,8 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-@Entity
-@Table(name="LAYOUTTYPE")
+//@Entity
+//@Table(name="LAYOUTTYPE")
 public class LayoutType implements Serializable{
 
 	private static final long serialVersionUID = -5656501350618082518L;
@@ -30,6 +30,7 @@ public class LayoutType implements Serializable{
     @Column(name = "DESCRIPTION", nullable = false, length = 80)
 	private String description;
 	
+    
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")
     @LazyCollection(LazyCollectionOption.FALSE)
 	private List<LayoutVersion> layoutVersions = new ArrayList<LayoutVersion>();

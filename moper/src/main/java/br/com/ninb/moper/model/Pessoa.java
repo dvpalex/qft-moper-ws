@@ -9,14 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-@Entity
-@Inheritance ( strategy = InheritanceType . JOINED )
+//@Entity
 public  class Pessoa extends EntityBase {
 
 	private static final long serialVersionUID = -4890518737027780299L;
 
 	public Pessoa(){};
-	
 	
 	@Id
 	@GeneratedValue

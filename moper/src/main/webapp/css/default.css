@@ -1,0 +1,605 @@
+body {
+	margin: 0px;
+	padding: 0;
+	color: #616161;
+}
+
+h1, h2, h3 {
+	margin-top: 0;
+}
+
+h1 {
+	font-size: 1.6em;
+	font-weight: normal;
+}
+
+h2 {
+	font-size: 1.6em;
+}
+
+h3 {
+	font-size: 1em;
+	margin-top:20px;
+}
+
+ul {
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a img {
+	border: none;
+}
+
+img.left {
+	float: left;
+	margin: 0 20px 0 0;
+}
+
+img.right {
+	float: right;
+	margin: 0 0 0 20px;
+}
+
+/* Header */
+header {
+    padding: 4px 0px;
+    top: 0px;
+    left: 0px;
+    right:0px;
+    height: 60px;
+   /* position: fixed;
+    z-index: 1000;*/
+    background-color:#f1f1f1;
+}
+
+#logo {
+    text-align: left;
+    padding-left: 5px;
+}
+
+/* Menu */
+#menu {
+    position: absolute;
+    top:25px;
+    right:15px;
+	padding: 0;
+	height: 59px;
+    overflow: hidden;
+}
+
+#menu ul {
+	margin: 0;
+	list-style: none;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu li a {
+	display: block;
+	float: left;
+	height: 42px;
+	margin: 0;
+	padding: 18px 40px 0 40px;
+	text-decoration: none;
+	font-size: 20px;
+}
+
+#menu li a:hover {
+	text-decoration: underline;
+}
+
+#globalthemeswitcher {
+    position:absolute;
+    top:5px;
+    right:50px;
+}
+
+/* Page */
+#page {
+	padding: 80px 0px;
+	background: #FFFFFF;
+}
+
+/* Content */
+#content {
+	margin-top:10px;
+	width: 81%;
+    float:left;
+    padding-left: 18%;
+}
+
+.post {
+	padding-bottom: 15px;
+}
+
+.post h1 {
+	font-weight: normal;
+}
+
+.title {
+	height: 30px;
+	padding: 8px 0 0 20px;
+}
+
+.title a {
+	border-bottom: none;
+	color: #FFFFFF;
+}
+
+.title a:hover {
+	border-bottom: 1px dotted #000000;
+}
+
+.submenu-title {
+    padding: 4px 10px;
+}
+
+.submenu-content {
+    text-align:center;
+}
+
+.byline {
+	margin: -60px 20px 20px 20px;
+}
+
+.byline a {
+	color: #DC8700;
+}
+
+.tag {
+	padding: 0 15px;
+}
+
+.entry {f
+	padding: 0 20px;
+}
+
+.entry p {
+	line-height: 200%;
+}
+
+.links {
+	padding: 4px 0px;
+	text-align: right;
+	font-weight: bold;
+}
+
+.links a {
+	border: none;
+}
+
+.links a:hover {
+}
+
+#sidebar {
+	float: left;
+	width: 25%;
+	padding: 0 10px;
+	margin-left: -1px;
+    overflow: hidden;
+}
+
+#sidebar a.ui-state-hover, 
+#sidebar a.ui-state-highlight {
+    border:0 none;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+#sidebar table {
+    width: 100%;
+}
+
+#sidebar table td {
+    vertical-align: top;
+}
+
+#sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar ul li {
+    list-style-type: none;
+    padding: 1px;
+}
+
+/* Footer */
+#footer {
+	z-index: 20000;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height: 30px;
+	margin: 0 auto;
+	padding: 0 20px;
+    font-size: 14px;
+}
+
+#footer p {
+	margin: 0;
+	padding: 10px 0 0 0;
+	text-align: center;
+}
+
+#footer a {
+}
+
+#footer .link {
+	float: right;
+}
+
+#footer .copyright {
+	float: left;
+}
+
+.homeText {
+	line-height: 175%;
+}
+
+.homeMenu {
+	width:200px;
+	float:left;
+	margin-right:10px
+}
+
+.themeMenu {
+    overflow: auto;
+    height:300px;
+    width:200px;
+}
+
+.dp-xml {
+    width:1000px;
+}
+
+.ui-themeswitcher a.ui-selectonemenu-label-container {
+    text-decoration: none !important;
+}
+
+.ui-widget {
+    font-size: 12px !important;
+}
+
+.ui-icon {
+	height: 16px !important;
+}
+
+/* Menu Principal do App */
+
+div.menu {
+	position: fixed;
+	top: 80px;
+	left: 10px;
+	width: 15%;
+}
+
+/* Configura����es da tela - login.xhtml */
+
+.login-panel {
+	position: fixed;
+	width: 300px;
+	margin-left: -150px;
+	left: 50%;
+	height: 146px;
+	margin-top: -110px;
+	top: 50%;
+}
+
+div.ui-panel-footer {
+	text-align: right !important;
+}
+
+.login-table {
+	width: 100%
+}
+
+table.login-table td{
+	padding: 2px;
+}
+
+table.login-table td.column-label{
+	width: 80px;
+}
+
+table.login-table td.column-input{
+	width: 170px;
+}
+
+table.login-table td input{
+	width: 160px;
+}
+
+/* Configura����es da tela - access_denied.xhtml  */
+
+.access-denied-panel {
+	position: fixed;
+	width: 300px;
+	margin-left: -150px;
+	left: 50%;
+	height: 146px;
+	margin-top: -110px;
+	top: 50%;
+}
+
+div.access-denied-panel div.ui-panel-footer {
+	text-align: right;
+}
+
+.access-denied-table {
+	width: 100%
+}
+
+table.access-denied-table td{
+	height: 55px;
+	text-align: center;
+}
+
+/* Table Customization */
+table {
+	width: 100%;
+} 
+
+/* Growl Customization */
+
+#growl_container div.ui-growl-item-container {
+	background: #646464 !important;
+	border: #646464 !important;
+	color: #ffffff !important;
+}
+
+#growl_container div.ui-growl-item-container div.ui-growl-item div.ui-growl-icon-close {
+	background-image: url("/cardif-etl/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-delta") !important;
+	
+}
+
+/* Spinner Customization */
+#spinner_container {
+	position: fixed;
+	z-index: 1010;
+	top: 4px;
+	right: 4px;	
+}
+
+#spinner_container .ui-growl-item-container {
+	background: #646464 !important;
+	border: #646464 !important;
+	color: #ffffff !important;
+	height: 50px;
+}
+
+#spinner_container .ui-growl-image {
+	width: 32px;
+	height: 32px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	display: block;
+	background: url("/cardif-etl/images/ajax-loader.gif");
+	background-size: 32px 32px;
+	background-position: 0px 64px !important;
+}
+
+#spinner_container .ui-growl-message {
+	padding: 9px 0 0px 0;
+	width: 220px;
+	float: right;
+	font-weight: normal;
+}
+
+#spinner_container .ui-growl-title {
+	padding: 0 0 0 0;
+	display: block;
+}
+
+.form_labels {
+	width: 155px;
+}
+
+.form_field_large {
+	width: 500px;
+}
+
+.form_field_normal {
+	width: 200px;
+}
+
+.form_field_short {
+	width: 80px;
+}
+
+.form_tall_lines {
+	line-height: 26px;	
+}
+
+div.multifield {
+	border: 0;
+}
+
+div.multifield div.ui-panel-content {
+	padding: 0;
+}
+
+table.multifield tr {
+	border: 0;
+}
+
+table.multifield tr td {
+	border: 0;
+}
+
+.selectionFieldSet {
+	margin-top: 5px;
+	position: relative;	
+	width: 500px;
+}
+
+.checkAll {
+	position: absolute;
+	top: 20px;
+	right: 8px;
+	width: 90px;	
+}
+
+.uncheckAll {
+	position: absolute;
+	top: 50px;
+	right: 8px;	
+	width: 90px;	
+}
+
+label {
+	white-space:nowrap;
+}
+
+.timePicker input {
+	width: 80px;
+}
+
+.scheduleEditLeft {
+	vertical-align: top;
+	width: 450px;
+}
+
+.scheduleEditRight {
+	vertical-align: top;
+	width: 200px;	
+}
+
+fieldset div.ui-fieldset-content td {
+	border: 0;
+	padding: 4px 0px;
+}
+
+.column30{
+	width: 30%;
+	vertical-align: top;
+}
+
+.column70{
+	width: 70%;
+	vertical-align: top;
+}
+
+.column20{
+	width: 20%;
+	vertical-align: top;
+}
+
+.column80{
+	width: 80%;
+	vertical-align: top;
+}
+
+.growl_error-description {
+	margin: 20px -75px;
+}
+.JOB_STATUS {
+	border-radius: 3px;
+	padding: 2px;
+	margin: 2px;
+}
+
+.JOB_PENDING {
+	border: 1px solid #BBBBBB !important;
+	background-color: #D7E2DC !important;
+	color: #000000 !important;
+}
+
+.JOB_STARTED {
+	border: 1px solid #5FB1D9 !important;
+	background-color: #5FB1D9 !important;
+	color: #ffffff !important;
+}
+
+.JOB_SUCCESS {
+	border: 1px solid #138D74 !important;
+	background-color: #138D74 !important;
+	color: #ffffff !important;
+}
+
+.JOB_FAILURE {
+	border: 1px solid #CF302D !important;
+	background-color: #CF302D !important;
+	color: #ffffff !important;
+}
+
+.JOB_INITIALIZATION_DELAYED {
+	border: 1px solid #F68237 !important;
+	background-color: #F68237 !important;
+	color: #ffffff !important;
+}
+
+.JOB_EXECUTION_DELAYED {
+	border: 1px solid #FAE298 !important;
+	background-color: #FAE298 !important;
+	color: #ffffff !important;
+}
+
+.JOB_CANCELED {
+	border: 1px solid #A17C8D !important;
+	background-color: #A17C8D !important;
+	color: #ffffff !important;
+}
+
+.ui-menu {
+	z-index: 20000;
+}
+
+.avatar {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	width: 50px;
+}
+
+#user {
+	position: absolute; 
+	right: 68px; 
+	top: 15px;	
+	text-align: right;
+}
+
+#username {
+	margin:2px 0px;
+	font-size: 15px;
+}	
+
+#email {
+	margin:2px 0px;
+	font-size: 12px; font-weight: normal
+}
+			
+div.mulfield .ui-widget-content {
+	border: 1px solid #a8a8a8;
+	background: transparent;
+	color: #4f4f4f;
+}
+
+.dashboardLegendLabel {
+	display: inline-table;
+	height: 16px;
+	margin-left: 5px;
+	vertical-align: middle;	
+}
+
+.dashboardLegendColor {
+	width: 16px;
+	height: 16px;
+	display: inline-table;
+	vertical-align: bottom;
+}
+
+.dashboardLegend {
+	padding: 2px;
+}

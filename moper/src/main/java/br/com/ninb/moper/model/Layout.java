@@ -11,8 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="LAYOUT")
+//@Entity
+//@Table(name="LAYOUT")
 public class Layout implements Serializable {
 
 	private static final long serialVersionUID = -2495404439149186612L;
@@ -20,19 +20,20 @@ public class Layout implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "LAYOUT_ID")
-	private long layoutId;
+	private int layoutId;
 	
 	@Column(name = "INDEX", nullable = false , unique = true)
-	private  long index;
+	private  int index;
 	
 	@Column(name = "BEGIN", nullable = false)
-	private long begin;
+	private int begin;
 	
 	@Column(name = "END", nullable = false)
-	private long end;
+	private int end;
 	
 	@Column(name = "LENGHT", nullable = false)
-	private long lenght;
+	private int lenght;
+	
 	
 	@Column(name = "TYPECOL", nullable = false)
 	private TypeColEnum typeCol;
@@ -62,7 +63,7 @@ public class Layout implements Serializable {
 		return layoutId;
 	}
 
-	public void setLayoutId(long layoutId) {
+	public void setLayoutId(int layoutId) {
 		this.layoutId = layoutId;
 	}
 	
@@ -70,7 +71,7 @@ public class Layout implements Serializable {
 		return index;
 	}
 
-	public void setIndex(long index) {
+	public void setIndex(int index) {
 		this.index = index;
 	}
 
@@ -78,7 +79,7 @@ public class Layout implements Serializable {
 		return begin;
 	}
 
-	public void setBegin(long begin) {
+	public void setBegin(int begin) {
 		this.begin = begin;
 	}
 
@@ -86,7 +87,7 @@ public class Layout implements Serializable {
 		return end;
 	}
 
-	public void setEnd(long end) {
+	public void setEnd(int end) {
 		this.end = end;
 	}
 
@@ -94,7 +95,7 @@ public class Layout implements Serializable {
 		return lenght;
 	}
 
-	public void setLenght(long lenght) {
+	public void setLenght(int lenght) {
 		this.lenght = lenght;
 	}
 	
