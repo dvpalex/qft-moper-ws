@@ -17,8 +17,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 
-//@Entity
-//@Table(name="ROWTYPE")
+@Entity
+@Table(name="ROWTYPE")
 public class RowType implements Serializable {
 
 	private static final long serialVersionUID = -6855684724691136472L;
@@ -48,8 +48,6 @@ public class RowType implements Serializable {
 	public void setLayouts(List<Layout> layouts) {
 		this.layouts = layouts;
 	}
-
-
 
 	public long getRowTypeId() {
 		return rowTypeId;

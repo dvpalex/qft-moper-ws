@@ -7,9 +7,30 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core">
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:t="http://br.com.cardif.etl/facelets">
 
-<h1>Lista de Layout</h1>
 
+<h:form id="frmLayout">
+	<p:panel id="btns">
+		<p:commandButton value="add field" />
+	</p:panel>
+	<p:dataTable var="var" id="fields" value="#{layoutBean.list}" >
+			<p:column headerText="#ID" width="80">  
+          				<h:outputText value="#{obj.layoutTypeId}"></h:outputText>
+			</p:column>
+			<p:column headerText="Field" value="#{obj.description}">
+			</p:column>
+			<p:column headerText="Begin" value="#{obj.beginField}">
+			</p:column>
+			<p:column headerText="End" value="#{obj.endField}">
+			</p:column>
+			<p:column headerText="Lenght" value="#{obj.beginField}">
+			</p:column>
+				
+	</p:dataTable>
+
+</h:form>
 </ui:composition>
 </html>

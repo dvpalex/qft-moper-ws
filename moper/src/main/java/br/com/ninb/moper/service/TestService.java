@@ -23,10 +23,6 @@ public class TestService {
 	@Transactional
 	public void save(Test test){
 		
-		Test oTest = new Test();
-		oTest.setMenssagem("Nao");
-		em.persist(oTest);
-		
 		if(test.getTestId() == null){
 			em.persist(test);
 		}else{

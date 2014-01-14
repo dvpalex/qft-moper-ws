@@ -17,8 +17,8 @@ import javax.persistence.TemporalType;
 import org.apache.openjpa.persistence.Type;
 import org.hibernate.type.descriptor.sql.SmallIntTypeDescriptor;
 
-//@Entity
-//@Table(name="OUTPUTREGISTER")
+@Entity
+@Table(name="OUTPUTREGISTER")
 public class OutputRegister implements Serializable {
 
 	private static final long serialVersionUID = 3320157644115634934L;
@@ -35,12 +35,12 @@ public class OutputRegister implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date generateDate;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
 	private LayoutType layoutType;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "LAYOUTVERSION_ID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "LAYOUTVERSION_ID", nullable = false)
 	private LayoutVersion layoutVersion;
 	
 	

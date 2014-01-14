@@ -49,13 +49,11 @@ public class PessoaMB implements Serializable {
 		 
 			Pessoa oPessoa = new PFisica(); 
 			oPessoa.setId(1);
-			oPessoa.setDtaInclusao(new Date());	
 			oPessoa.setTipoPessoa(TipoPessoaEnum.FISICA);
 			list.add(oPessoa);
 	
 			Pessoa oPessoa1 = new PJuridica(); 
 			oPessoa1.setId(1);
-			oPessoa1.setDtaInclusao(new Date());	
 			oPessoa1.setTipoPessoa(TipoPessoaEnum.JURIDICA);
 			list.add(oPessoa1);
 			

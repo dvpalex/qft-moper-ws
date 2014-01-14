@@ -1,18 +1,28 @@
 package br.com.ninb.moper.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name="LAYOUT")
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+
+@Entity
+@Table(name="LAYOUT")
 public class Layout implements Serializable {
 
 	private static final long serialVersionUID = -2495404439149186612L;
@@ -20,20 +30,19 @@ public class Layout implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "LAYOUT_ID")
-	private int layoutId;
+	private Long layoutId;
 	
-	@Column(name = "INDEX", nullable = false , unique = true)
-	private  int index;
+	@Column(name = "INDEXFIELD", nullable = false)
+	private  int indexField;
 	
-	@Column(name = "BEGIN", nullable = false)
-	private int begin;
+	@Column(name = "BEGINFIELD", nullable = false)
+	private int beginField;
 	
-	@Column(name = "END", nullable = false)
-	private int end;
+	@Column(name = "ENDFIELD", nullable = false)
+	private int endField;
 	
-	@Column(name = "LENGHT", nullable = false)
-	private int lenght;
-	
+	@Column(name = "LENGHTFIELD", nullable = false)
+	private int lenghtField;
 	
 	@Column(name = "TYPECOL", nullable = false)
 	private TypeColEnum typeCol;
@@ -45,6 +54,7 @@ public class Layout implements Serializable {
 	@JoinColumn(name = "ROWTYPE_ID", nullable = false)
 	private RowType rowType;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
 	private LayoutType layoutType;
@@ -54,49 +64,19 @@ public class Layout implements Serializable {
 	private LayoutVersion layoutVersion;
 
 	
-	public Layout(){
-		
-	}
-	
+	@ManyToMany
+    @LazyCollection(LazyCollectionOption.TRUE)
+	@JoinTable(name="LayoutVersionLayout", joinColumns ={ @JoinColumn (name="LAYOUT_ID") }, 
+			inverseJoinColumns = {
+			 @JoinColumn(name = "LAYOUTVERSION_ID")})
+	private List<LayoutVersion> layoutVersions = new ArrayList<LayoutVersion>();
 
-	public long getLayoutId() {
+	public Long getLayoutId() {
 		return layoutId;
 	}
 
-	public void setLayoutId(int layoutId) {
+	public void setLayoutId(Long layoutId) {
 		this.layoutId = layoutId;
-	}
-	
-	public long getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
-	}
-
-	public long getBegin() {
-		return begin;
-	}
-
-	public void setBegin(int begin) {
-		this.begin = begin;
-	}
-
-	public long getEnd() {
-		return end;
-	}
-
-	public void setEnd(int end) {
-		this.end = end;
-	}
-
-	public long getLenght() {
-		return lenght;
-	}
-
-	public void setLenght(int lenght) {
-		this.lenght = lenght;
 	}
 	
 	public TypeColEnum getTypeCol() {
@@ -105,6 +85,38 @@ public class Layout implements Serializable {
 
 	public void setTypeCol(TypeColEnum typeCol) {
 		this.typeCol = typeCol;
+	}
+
+	public int getIndexField() {
+		return indexField;
+	}
+
+	public void setIndexField(int indexField) {
+		this.indexField = indexField;
+	}
+
+	public int getBeginField() {
+		return beginField;
+	}
+
+	public void setBeginField(int beginField) {
+		this.beginField = beginField;
+	}
+
+	public int getEndField() {
+		return endField;
+	}
+
+	public void setEndField(int endField) {
+		this.endField = endField;
+	}
+
+	public int getLenghtField() {
+		return lenghtField;
+	}
+
+	public void setLenghtField(int lenghtField) {
+		this.lenghtField = lenghtField;
 	}
 
 	public String getDescription() {
@@ -138,7 +150,15 @@ public class Layout implements Serializable {
 	public void setLayoutType(LayoutType layoutType) {
 		this.layoutType = layoutType;
 	}
+	
+	
+	public List<LayoutVersion> getLayoutVersions() {
+		return layoutVersions;
+	}
 
+	public void setLayoutVersions(List<LayoutVersion> layoutVersions) {
+		this.layoutVersions = layoutVersions;
+	}
 
 	@Override
 	public int hashCode() {
@@ -148,6 +168,7 @@ public class Layout implements Serializable {
 		return result;
 	}
 
+	
 
 	@Override
 	public boolean equals(Object obj) {

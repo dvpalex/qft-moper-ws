@@ -6,31 +6,30 @@ import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
+@MappedSuperclass
 public abstract class EntityBase implements Serializable {
 
 	private static final long serialVersionUID = 7108760821263160996L;
 
-	private Date dtaInclusao;
 	
-	@Column
-	private long idUser;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 	
-	public Date getDtaInclusao() {
-		return dtaInclusao;
-	}
-	public void setDtaInclusao(Date dtaInclusao) {
-		this.dtaInclusao = dtaInclusao;
-	}
-	public long getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(long idUser) {
-		this.idUser = idUser;
-	}
+	@Column(name="DTINC", nullable=false)
+	@Temporal(TemporalType.DATE)
+	private Date dtInc;
+	
+	@Column(name="USERID")
+	private Long userId;
+	
+	
 	
 }

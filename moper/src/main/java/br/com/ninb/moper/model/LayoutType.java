@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,34 +17,49 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-//@Entity
-//@Table(name="LAYOUTTYPE")
+@Entity
+@Table(name="LAYOUTTYPE")
 public class LayoutType implements Serializable{
 
 	private static final long serialVersionUID = -5656501350618082518L;
 	
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "LAYOUTYPE_ID")
-	private long  layoutTypeId;
+	private Long  layoutTypeId;
 	
     @Column(name = "DESCRIPTION", nullable = false, length = 80)
 	private String description;
 	
     
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
 	private List<LayoutVersion> layoutVersions = new ArrayList<LayoutVersion>();
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
 	private List<OutputRegister> outputRegisters = new ArrayList<OutputRegister>();
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")
+    @LazyCollection(LazyCollectionOption.TRUE)
+	private List<Layout> layouts = new ArrayList<Layout>();
+
 	
 	public LayoutType(){
-		
+		super();
 	}
 	
+	public LayoutType(Long layoutTypeId,  String description){
+		super();
+		this.layoutTypeId = layoutTypeId;
+		this.description = description;
+	}
+	
+	public LayoutType(String description){
+		super();
+		this.description = description;
+	}
 	
 	public List<OutputRegister> getOutputRegisters() {
 		return outputRegisters;
@@ -53,11 +69,33 @@ public class LayoutType implements Serializable{
 		this.outputRegisters = outputRegisters;
 	}
 
-	public long getLayoutTypeId() {
+	
+	
+	public List<LayoutVersion> getLayoutVersions() {
+		return layoutVersions;
+	}
+
+
+	public void setLayoutVersions(List<LayoutVersion> layoutVersions) {
+		this.layoutVersions = layoutVersions;
+	}
+
+
+	public List<Layout> getLayouts() {
+		return layouts;
+	}
+
+
+	public void setLayouts(List<Layout> layouts) {
+		this.layouts = layouts;
+	}
+
+
+	public Long getLayoutTypeId() {
 		return layoutTypeId;
 	}
 
-	public void setLayoutTypeId(long layoutTypeId) {
+	public void setLayoutTypeId(Long layoutTypeId) {
 		this.layoutTypeId = layoutTypeId;
 	}
 
@@ -82,6 +120,8 @@ public class LayoutType implements Serializable{
 	}
 
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,9 +145,5 @@ public class LayoutType implements Serializable{
 		return true;
 	}
 
-
-	
-	
-	
 	
 }

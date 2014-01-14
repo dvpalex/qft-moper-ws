@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,9 +22,9 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
-//@Entity
-//@Table(name="LAYOUTVERSION")
+	
+@Entity
+@Table(name="LAYOUTVERSION")
 public class LayoutVersion implements Serializable{
 
 	
@@ -47,21 +49,18 @@ public class LayoutVersion implements Serializable{
 	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
 	private LayoutType layoutType;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutVersion")
-    @LazyCollection(LazyCollectionOption.FALSE)
-	private List<Layout> layouts = new ArrayList<Layout>();
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutVersion")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
 	private List<OutputRegister> outputRegisters = new ArrayList<OutputRegister>();
+	
+	@ManyToMany(mappedBy = "layoutVersions")
+	private List<Layout> layouts = new ArrayList<Layout>();
 	
 	
 	public LayoutVersion(){
 		
 	}
-
-	
-	
 	
 	public List<OutputRegister> getOutputRegisters() {
 		return outputRegisters;
@@ -124,7 +123,9 @@ public class LayoutVersion implements Serializable{
 		this.description = description;
 	}
 
-
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -7,14 +7,10 @@
 	<persistence-unit name="pumssql" transaction-type="RESOURCE_LOCAL">
 		
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		
-		
-		
-		<class>br.com.ninb.moper.model.Test</class>
+	
 		<properties>
-		
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.charSet" value="UTF-8" />
 			<property name="hibernate.current_session_context_class" value="thread" />
 			<property name="hibernate.autocommit" value="false" />
