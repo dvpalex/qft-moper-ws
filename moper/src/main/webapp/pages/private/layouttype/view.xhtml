@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://br.com.cardif.etl/facelets">
+<h:body>
+	<h:form>
+		<p:panelGrid columns="2">
+				
+				<p:outputLabel for="descrition" value="Description" styleClass="form_labels"/>
+				<p:inputText id="descrition" value="#{layoutTypeBean.instance.description}" />
+		
+					<f:facet name="footer">
+						<p:commandButton type="submit" action="#{layoutTypeBean.list}"
+							value="Back" update=":contentform"/>
+
+						<p:commandButton type="submit" action="#{layoutTypeBean.edit}"
+							value="Edit" update=":contentform"/>
+
+						<p:commandButton value="Remove" type="submit" action="#{layoutTypeBean.remove}" 
+							update=":contentform" />
+				</f:facet>
+		</p:panelGrid>
+	</h:form>
+</h:body> 
+</ui:composition>         

@@ -302,6 +302,7 @@
   <build>
     <finalName>moper</finalName>
     
+    	
     	<plugins>
 			<!-- Início: Compilador AspectJ para habilitar compile-time weaving --> 
 			<plugin>
@@ -334,7 +335,8 @@
 				</executions>
 			</plugin>
 			<!-- Fim: Compilador AspectJ para habilitar compile-time weaving -->
-    	
+
+ 	
 			<!--Interpretador dos recursos da aplicação -->
    		<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
