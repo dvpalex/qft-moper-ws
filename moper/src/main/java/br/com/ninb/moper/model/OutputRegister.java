@@ -2,7 +2,9 @@ package br.com.ninb.moper.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.apache.openjpa.persistence.Type;
-import org.hibernate.type.descriptor.sql.SmallIntTypeDescriptor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="OUTPUTREGISTER")
@@ -26,10 +29,10 @@ public class OutputRegister implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "OUTPUTREGISTER_ID")
-	private long outputRegisterId;
+	private Long outputRegisterId;
 	
 	@Column(name = "DETAILCOUNT", nullable = false)
-	private long detailCount;
+	private Long detailCount;
 	
 	@Column(name = "GENERATEDATE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -42,39 +45,57 @@ public class OutputRegister implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "LAYOUTVERSION_ID", nullable = false)
 	private LayoutVersion layoutVersion;
-	
-	
+		
 	@Column(name = "STATUS", nullable = false)
 	private int status;
 	
 	@Column(name = "EVENT", nullable = true, length = 80)
 	private String event;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "outputRegister")
+    @LazyCollection(LazyCollectionOption.TRUE)
+	private List<OutputRowRegister> rows;
+	
+	@Column(name = "FILENAME", nullable = false)
+	private String fileName;
+
+	@Column(name = "NUMSEQ", nullable = false)
+	private Long numSeq;
+	
 	public OutputRegister(){
 		
-	}
+	}	
 	
 	
-	public long getOutputRegisterId() {
+
+	public Long getOutputRegisterId() {
 		return outputRegisterId;
 	}
 
-	public void setOutputRegisterId(long outputRegisterId) {
+
+
+	public void setOutputRegisterId(Long outputRegisterId) {
 		this.outputRegisterId = outputRegisterId;
 	}
 
 
-	public long getDetailCount() {
+
+	public Long getDetailCount() {
 		return detailCount;
 	}
 
-	public void setDetailCount(long detailCount) {
+
+
+	public void setDetailCount(Long detailCount) {
 		this.detailCount = detailCount;
 	}
-	
+
+
+
 	public Date getGenerateDate() {
 		return generateDate;
 	}
+
 
 
 	public void setGenerateDate(Date generateDate) {
@@ -82,9 +103,23 @@ public class OutputRegister implements Serializable {
 	}
 
 
+
+	public LayoutType getLayoutType() {
+		return layoutType;
+	}
+
+
+
+	public void setLayoutType(LayoutType layoutType) {
+		this.layoutType = layoutType;
+	}
+
+
+
 	public LayoutVersion getLayoutVersion() {
 		return layoutVersion;
 	}
+
 
 
 	public void setLayoutVersion(LayoutVersion layoutVersion) {
@@ -92,20 +127,11 @@ public class OutputRegister implements Serializable {
 	}
 
 
-	public LayoutType getLayoutType() {
-		return layoutType;
-	}
 
-	public void setLayoutType(LayoutType layoutType) {
-		this.layoutType = layoutType;
-	}
-
-
-	
-	
 	public int getStatus() {
 		return status;
 	}
+
 
 
 	public void setStatus(int status) {
@@ -113,13 +139,60 @@ public class OutputRegister implements Serializable {
 	}
 
 
+
 	public String getEvent() {
 		return event;
 	}
 
+
+
 	public void setEvent(String event) {
 		this.event = event;
 	}
+
+
+
+	public List<OutputRowRegister> getRows() {
+		return rows;
+	}
+
+
+
+	public void setRows(List<OutputRowRegister> rows) {
+		this.rows = rows;
+	}
+
+
+
+	public String getFileName() {
+		return fileName;
+	}
+
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+
+	public Long getNumSeq() {
+		return numSeq;
+	}
+
+
+
+	public void setNumSeq(Long numSeq) {
+		this.numSeq = numSeq;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
+	
 
 
 	@Override

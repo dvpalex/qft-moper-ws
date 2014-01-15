@@ -33,7 +33,7 @@ public class LayoutVersion implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "LAYOUTVERSION_ID")
-	private long layoutVersionId;
+	private Long layoutVersionId;
 	
 	@Column(name = "GENERATEDATE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)

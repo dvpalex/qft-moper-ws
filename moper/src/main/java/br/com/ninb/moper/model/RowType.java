@@ -35,7 +35,20 @@ public class RowType implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
 	private List<Layout> layouts = new ArrayList<Layout>();
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rowType")
+    @LazyCollection(LazyCollectionOption.FALSE)
+	private List<OutputRowRegister> rows;
 	
+	
+	
+	public List<OutputRowRegister> getRows() {
+		return rows;
+	}
+
+	public void setRows(List<OutputRowRegister> rows) {
+		this.rows = rows;
+	}
+
 	public RowType(){
 		
 	}
