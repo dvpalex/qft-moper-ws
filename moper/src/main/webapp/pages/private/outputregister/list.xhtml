@@ -21,8 +21,7 @@
 	<p:separator />
 	
 	<h:form id="form2">
-        <h:panelGrid columns="2" rules="4" border="0" cellpadding="0" cellspacing="5">
-        
+        <h:panelGrid columns="2" rules="4" border="0" cellpadding="0" cellspacing="5">      
         	<h:outputLabel value="Tipo do Layout"/>
             <p:selectOneMenu id="type" value="#{outputRegisterBean.outputRegister.layoutType.layoutTypeId}">
                 <p:ajax event="change" update="version" listener="#{outputRegisterBean.listLayoutVersion}"/>  
@@ -41,7 +40,7 @@
             <h:outputLabel value="Data de término"/>
             <p:calendar value="#{outputRegisterBean.lastDate}" id="dataFim" />        
         </h:panelGrid>
-		<p:commandButton value="Search" actionListener="#{outputBean}" id="buscar"/>
+		<p:commandButton value="Search" actionListener="#{outputRegisterBean.find}" id="buscar"/>
 	</h:form>
 
 	<br/><p:separator />

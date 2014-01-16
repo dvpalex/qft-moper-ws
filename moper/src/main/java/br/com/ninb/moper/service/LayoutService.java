@@ -1,6 +1,7 @@
 package br.com.ninb.moper.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ninb.moper.model.Layout;
+import br.com.ninb.moper.model.LayoutType;
+import br.com.ninb.moper.model.LayoutVersion;
 
 @Configurable
 @Component
@@ -29,7 +32,7 @@ public class LayoutService {
 		}
 
 	}
-	
+
 	
 	public List<Layout> list(){
 		
