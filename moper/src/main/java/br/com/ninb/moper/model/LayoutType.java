@@ -26,14 +26,14 @@ public class LayoutType implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "LAYOUTYPE_ID")
+    @Column(name = "LAYOUTTYPE_ID")
 	private Long  layoutTypeId;
 	
-	@Column(name = "COLNAME", nullable = false, length = 80)
-	private String colName;
+	@Column(name = "NAME", unique = true , nullable = false, length = 80)
+	private String name;
 	
-    @Column(name = "DESCRIPTION", nullable = false, length = 80)
-	private String description;
+    @Column(name = "DESCR", nullable = false, length = 80)
+	private String descr;
 	
     
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")
@@ -53,15 +53,15 @@ public class LayoutType implements Serializable{
 		super();
 	}
 	
-	public LayoutType(Long layoutTypeId,  String description){
+	public LayoutType(Long layoutTypeId,  String descr){
 		super();
 		this.layoutTypeId = layoutTypeId;
-		this.description = description;
+		this.descr = descr;
 	}
 	
-	public LayoutType(String description){
+	public LayoutType(String descr){
 		super();
-		this.description = description;
+		this.descr = descr;
 	}
 	
 	public List<OutputRegister> getOutputRegisters() {
@@ -113,21 +113,13 @@ public class LayoutType implements Serializable{
 	}
 
 
-	public String getDescription() {
-		return description;
+	public String getDescr() {
+		return descr;
 	}
 
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getColName() {
-		return colName;
-	}
-
-	public void setColName(String colName) {
-		this.colName = colName;
+	public void setDescr(String descr) {
+		this.descr = descr;
 	}
 
 	@Override

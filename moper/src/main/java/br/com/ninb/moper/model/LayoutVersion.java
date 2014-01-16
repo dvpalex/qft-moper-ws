@@ -39,11 +39,11 @@ public class LayoutVersion implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date generateDate;
 	
-	@Column(name = "VERSION", nullable = false)
-	private long version;
+	@Column(name = "VERSIONLAYOUT", nullable = false)
+	private long versionLayout;
 	
-	@Column(name = "DESCRIPTION", length = 80)
-	private String description;
+	@Column(name = "DESCR", length = 80)
+	private String descr;
 	
 	@ManyToOne
 	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
@@ -106,21 +106,21 @@ public class LayoutVersion implements Serializable{
 		this.layoutVersionId = layoutVersionId;
 	}
 
-	public long getVersion() {
-		return version;
+	public long getVersionLayout() {
+		return versionLayout;
 	}
 
-	public void setVersion(long version) {
-		this.version = version;
+	public void setVersion(long versionLayout) {
+		this.versionLayout = versionLayout;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescr() {
+		return descr;
 	}
 
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescr(String descr) {
+		this.descr = descr;
 	}
 
 	

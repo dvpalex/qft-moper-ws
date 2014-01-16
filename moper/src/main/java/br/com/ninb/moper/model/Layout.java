@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,15 +47,20 @@ public class Layout implements Serializable {
 	private int lenghtField;
 	
 	@Column(name = "TYPECOL", nullable = false)
+	@Enumerated (EnumType.STRING)
 	private TypeColEnum typeCol;
 	
-	@Column(name = "DESCRIPTION", nullable = false, length = 80)
-	private String description;
+	@Column(name = "DESCR", nullable = false, length = 80)
+	private String descr;
+	
+
+	@Column(name = "COLNAME", nullable = false, length = 80)
+	private String colName;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "ROWTYPE_ID", nullable = false)
 	private RowType rowType;
-	
 	
 	@ManyToOne
 	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
@@ -119,12 +126,12 @@ public class Layout implements Serializable {
 		this.lenghtField = lenghtField;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescr() {
+		return descr;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDesc(String descr) {
+		this.descr = descr;
 	}
 
 	public RowType getRowType() {
@@ -158,6 +165,16 @@ public class Layout implements Serializable {
 
 	public void setLayoutVersions(List<LayoutVersion> layoutVersions) {
 		this.layoutVersions = layoutVersions;
+	}
+
+	
+	
+	public String getColName() {
+		return colName;
+	}
+
+	public void setColName(String colName) {
+		this.colName = colName;
 	}
 
 	@Override

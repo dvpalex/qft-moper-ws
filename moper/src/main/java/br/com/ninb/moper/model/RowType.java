@@ -28,8 +28,8 @@ public class RowType implements Serializable {
     @Column(name = "ROWTYPE_ID")
 	private long rowTypeId;
 	
-	@Column(name = "DESCRIPTION", length = 80)
-	private String description;
+	@Column(name = "DESCR", length = 80)
+	private String descr;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rowType")
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -70,14 +70,14 @@ public class RowType implements Serializable {
 		this.rowTypeId = rowTypeId;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescr() {
+		return descr;
 	}
 
 
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescr(String descr) {
+		this.descr = descr;
 	}
 
 

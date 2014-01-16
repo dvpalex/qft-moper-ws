@@ -36,7 +36,7 @@ public class LayoutService {
 		List<Layout> layouts = new ArrayList<Layout>();
 		
 		Layout layout = new Layout();
-		layout.setDescription("Layout Teste");
+		layout.setDesc("Layout Teste");
 		layouts.add(layout);
 		
 		return layouts;
