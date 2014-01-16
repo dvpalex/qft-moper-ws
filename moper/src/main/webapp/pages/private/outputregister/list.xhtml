@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://br.com.cardif.etl/facelets">
+<h:body>
+				
+	<p:panel header="Output" style="margin-bottom:5px">
+	
+	<h:form id="form1">
+	 <h:panelGrid columns="1" rules="4">
+		<h:panelGrid columns="1" rules="1">
+			<h3>Nome do arquivo</h3>
+			<p:inputText id="fileName" style="width: 300px"/>
+			<p:commandButton id="buscarPorNome" value="Buscar"/>
+		</h:panelGrid>
+		</h:panelGrid>
+	</h:form>
+	
+		<p:separator />
+	
+	<h:form id="form2">
+        <h:panelGrid columns="1" rules="4">
+        
+        	<h3>Tipo do layout</h3>
+            <p:selectOneMenu id="type" value="#{outputBean}">
+                <f:selectItem itemLabel="Selecione o tipo do layout" itemValue="" />
+                <f:selectItem itemLabel="Layout A" itemValue="" />
+                <f:selectItem itemLabel="Layout B" itemValue="" />
+            </p:selectOneMenu>    
+            
+            <h3>Versão do layout</h3>
+            <p:selectOneMenu id="version" value="#{outputBean}">
+                <f:selectItem itemLabel="Selecione a versão do layout" itemValue="" />
+                <f:selectItem itemLabel="Versão A" itemValue="" />
+                <f:selectItem itemLabel="Versão B" itemValue="" />
+            </p:selectOneMenu>   
+            
+            <h3>Data de início</h3>
+            <p:calendar value="#{calendarBean.date2}" id="dataInicio" />
+            
+            <h3>Data de término</h3>
+            <p:calendar value="#{calendarBean.date2}" id="dataFim" />        
+        </h:panelGrid>
+        
+        <p:separator />
+		
+		<p:commandButton value="Buscar" actionListener="#{outputBean}" id="buscar"/>
+
+	</h:form>
+
+	<br/><br/>
+
+	<h:form>
+    <p:dataTable var="register" value="#{outputBean.listOutputRegister}">
+        <p:column headerText="Detail Count">
+            <h:outputText value="#{register.detailCount}" />
+        </p:column>
+
+        <p:column headerText="Date">
+            <h:outputText value="#{register.date}" />
+        </p:column>
+
+        <p:column headerText="Layout Type">
+            <h:outputText value="#{register.layoutType}" />
+        </p:column>
+        
+        <p:column headerText="Layout Version">
+            <h:outputText value="#{register.layoutVersion}" />
+        </p:column>
+        
+        <p:column headerText="Status">
+            <h:outputText value="#{register.status}" />
+        </p:column>
+        
+        <p:column headerText="Event">
+            <h:outputText value="#{register.event}" />
+        </p:column>
+        
+        <p:column headerText="File Name">
+            <h:outputText value="#{register.fileName}" />
+        </p:column>
+        
+        <p:column headerText="Sequencial Number">
+            <h:outputText value="#{register.numSeq}" />
+        </p:column>
+        
+    </p:dataTable>
+	</h:form>
+		
+	
+	
+	<!--h:form>
+    <p:dataTable var="car" value="#{tableBean.carsSmall}">
+        
+        <p:column headerText="Index">
+            <h:outputText value="#{car.year}" />
+        </p:column>
+        <p:column headerText="Content">
+            <h:outputText value="#{car.model}" />
+        </p:column>   
+        
+    </p:dataTable>
+	</h:form-->		
+
+	</p:panel>
+		
+</h:body> 
+</ui:composition>

@@ -2,7 +2,6 @@ package br.com.ninb.moper.service;
 
 import java.util.List;
 
-import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -33,7 +32,8 @@ public class OutputRegisterService
 		
 	public List<OutputRegister> listAll()
 	{
-		  TypedQuery<OutputRegister> query = em.createQuery("SELECT c FROM outputregister c", OutputRegister.class);
-			  List<OutputRegister> results = query.getResultList();
+		  TypedQuery<OutputRegister> query = em.createQuery("FROM outputRegister c", OutputRegister.class);
+		  List<OutputRegister> results = query.getResultList();
+		  return results;
 	}
 }
