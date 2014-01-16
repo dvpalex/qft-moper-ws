@@ -2,8 +2,6 @@ package br.com.ninb.moper.model;
 
 import java.util.List;
 
-import javax.persistence.ManyToMany;
-
 public class CategoriaPessoa extends EntityBase {
 
 	/*

@@ -11,100 +11,87 @@
 	<p:panel header="Output" style="margin-bottom:5px">
 	
 	<h:form id="form1">
-	 <h:panelGrid columns="1" rules="4">
-		<h:panelGrid columns="1" rules="1">
-			<h3>Nome do arquivo</h3>
-			<p:inputText id="fileName" style="width: 300px"/>
-			<p:commandButton id="buscarPorNome" value="Buscar"/>
-		</h:panelGrid>
-		</h:panelGrid>
+	 <h:panelGrid columns="3" rules="1" border="0" cellpadding="0" cellspacing="5">
+			<h:outputLabel value="Nome do Arquivo"/>
+			<p:inputText id="fileName" style="width: 300px" value="#{outputRegisterBean.outputRegister.fileName}"/>
+			<p:commandButton id="buscarPorNome" value="Search" action="#{outputRegisterBean.findByFileName}" ajax="false"/>
+	 </h:panelGrid>
 	</h:form>
 	
-		<p:separator />
+	<p:separator />
 	
 	<h:form id="form2">
-        <h:panelGrid columns="1" rules="4">
+        <h:panelGrid columns="2" rules="4" border="0" cellpadding="0" cellspacing="5">
         
-        	<h3>Tipo do layout</h3>
-            <p:selectOneMenu id="type" value="#{outputBean}">
+        	<h:outputLabel value="Tipo do Layout"/>
+            <p:selectOneMenu id="type" value="#{outputRegisterBean.outputRegister.layoutType.layoutTypeId}">
+                <p:ajax event="change" update="version" listener="#{outputRegisterBean.listLayoutVersion}"/>  
+                <f:converter converterId="javax.faces.Long"/>
                 <f:selectItem itemLabel="Selecione o tipo do layout" itemValue="" />
-                <f:selectItem itemLabel="Layout A" itemValue="" />
-                <f:selectItem itemLabel="Layout B" itemValue="" />
+                <f:selectItems value="#{outputRegisterBean.types}" /> 
             </p:selectOneMenu>    
-            
-            <h3>Versão do layout</h3>
-            <p:selectOneMenu id="version" value="#{outputBean}">
+            <h:outputLabel value="Versão do layout"/>
+            <p:selectOneMenu id="version" value="#{outputRegisterBean.outputRegister.layoutVersion.layoutVersionId}">
+            	<f:converter converterId="javax.faces.Long"/>
                 <f:selectItem itemLabel="Selecione a versão do layout" itemValue="" />
-                <f:selectItem itemLabel="Versão A" itemValue="" />
-                <f:selectItem itemLabel="Versão B" itemValue="" />
-            </p:selectOneMenu>   
-            
-            <h3>Data de início</h3>
-            <p:calendar value="#{calendarBean.date2}" id="dataInicio" />
-            
-            <h3>Data de término</h3>
-            <p:calendar value="#{calendarBean.date2}" id="dataFim" />        
+                <f:selectItems value="#{outputRegisterBean.versions}" /> 
+            </p:selectOneMenu>             
+            <h:outputLabel value="Data de início"/>
+            <p:calendar value="#{outputRegisterBean.firstDate}" id="dataInicio" />           
+            <h:outputLabel value="Data de término"/>
+            <p:calendar value="#{outputRegisterBean.lastDate}" id="dataFim" />        
         </h:panelGrid>
-        
-        <p:separator />
-		
-		<p:commandButton value="Buscar" actionListener="#{outputBean}" id="buscar"/>
-
+		<p:commandButton value="Search" actionListener="#{outputBean}" id="buscar"/>
 	</h:form>
 
-	<br/><br/>
+	<br/><p:separator />
 
 	<h:form>
-    <p:dataTable var="register" value="#{outputBean.listOutputRegister}">
+    <p:dataTable id="registers" var="register" value="#{outputRegisterBean.listOutputRegister}" paginator="true" rows="5">
         <p:column headerText="Detail Count">
             <h:outputText value="#{register.detailCount}" />
         </p:column>
-
         <p:column headerText="Date">
-            <h:outputText value="#{register.date}" />
+            <h:outputText value="#{register.generateDate}" />
         </p:column>
-
         <p:column headerText="Layout Type">
-            <h:outputText value="#{register.layoutType}" />
-        </p:column>
-        
+            <h:outputText value="#{register.layoutType.colName}" />
+        </p:column>       
         <p:column headerText="Layout Version">
-            <h:outputText value="#{register.layoutVersion}" />
-        </p:column>
-        
+            <h:outputText value="#{register.layoutVersion.version}" />
+        </p:column>       
         <p:column headerText="Status">
             <h:outputText value="#{register.status}" />
-        </p:column>
-        
+        </p:column>     
         <p:column headerText="Event">
             <h:outputText value="#{register.event}" />
-        </p:column>
-        
+        </p:column>       
         <p:column headerText="File Name">
             <h:outputText value="#{register.fileName}" />
-        </p:column>
-        
+        </p:column>       
         <p:column headerText="Sequencial Number">
             <h:outputText value="#{register.numSeq}" />
-        </p:column>
-        
+        </p:column>        
+         <p:column headerText="">      	 
+            <p:commandButton process="@this registers" value="Show Rows" actionListener="#{outputRegisterBean.listRows}" id="buscar" ajax="false">
+            	<f:setPropertyActionListener value="#{register.outputRegisterId}" target="#{outputRegisterBean.outputRegisterId}" />
+            </p:commandButton>
+        </p:column>        
     </p:dataTable>
 	</h:form>
 		
+	<br/><br/>
 	
-	
-	<!--h:form>
-    <p:dataTable var="car" value="#{tableBean.carsSmall}">
-        
+	<h:form>
+    <p:dataTable var="rows" value="#{outputRegisterBean.rows}" paginator="true" rows="1">     
         <p:column headerText="Index">
-            <h:outputText value="#{car.year}" />
+            <h:outputText value="#{rows.rowIndex}" />
         </p:column>
         <p:column headerText="Content">
-            <h:outputText value="#{car.model}" />
-        </p:column>   
-        
+            <h:outputText value="#{rows.content}" />
+        </p:column>        
     </p:dataTable>
-	</h:form-->		
+	</h:form>		
 
 	</p:panel>
 		

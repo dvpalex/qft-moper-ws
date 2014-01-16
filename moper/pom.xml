@@ -302,16 +302,75 @@
   <build>
     <finalName>moper</finalName>
     
-    	
-    	<plugins>
-			<!-- Início: Compilador AspectJ para habilitar compile-time weaving --> 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>aspectj-maven-plugin</artifactId>
+                    <version>1.4</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compile</goal>
+                                <goal>test-compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <source>${project.build.javaVersion}</source>
+                        <target>${project.build.javaVersion}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>${project.build.javaVersion}</source>
+                        <target>${project.build.javaVersion}</target>
+                    </configuration>
+                </plugin>
+
+				<!-- Ignore/Execute plugin execution -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<!-- copy-dependency plugin -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>aspectj-maven-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>compile</goal>
+											<goal>test-compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+        </pluginManagement>
+        
+		<plugins>
+				
+			<!-- AspectJ compile-time weaving --> 
 			<plugin>
 			    <groupId>org.codehaus.mojo</groupId>
 			    <artifactId>aspectj-maven-plugin</artifactId>
-			    <version>1.1</version>
 				<configuration>
-	            <source>${project.build.javaVersion}</source>
-	            <target>${project.build.javaVersion}</target>
+					<source>${project.build.javaVersion}</source>
+					<target>${project.build.javaVersion}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<XnoInline>true</XnoInline>
 					<outxml>true</outxml>
@@ -323,6 +382,10 @@
 							<groupId>org.springframework</groupId>
 							<artifactId>spring-aspects</artifactId>
 						</aspectLibrary>
+                        <aspectLibrary>
+                            <groupId>org.springframework.security</groupId>
+                            <artifactId>spring-security-aspects</artifactId>
+                        </aspectLibrary>
 					</aspectLibraries>
 				</configuration>
 				<executions>
@@ -334,11 +397,9 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Fim: Compilador AspectJ para habilitar compile-time weaving -->
-
- 	
+        
 			<!--Interpretador dos recursos da aplicação -->
-   		<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.6</version>
@@ -356,6 +417,7 @@
     			<path>/${project.artifactId}</path>
   			</configuration>
 		</plugin>	
-		</plugins>
+	</plugins>    	
+
   </build>
   </project>

@@ -19,9 +19,13 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name="OUTPUTREGISTER")
+@Configurable
+@Component
 public class OutputRegister implements Serializable {
 
 	private static final long serialVersionUID = 3320157644115634934L;

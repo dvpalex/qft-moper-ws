@@ -47,7 +47,7 @@ public class MenuBean {
 		
 		subItem = new DefaultMenuItem("Output");
 		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{outputBean.search}");
+		subItem.setCommand("#{outputRegisterBean.list}");
 		subItem.setAjax(false);
 		
 		model.addElement(subItem);

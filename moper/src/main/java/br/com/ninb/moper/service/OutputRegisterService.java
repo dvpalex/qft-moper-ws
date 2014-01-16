@@ -29,11 +29,17 @@ public class OutputRegisterService
 		}
 
 	}
-		
+	
+	public List<OutputRegister> listByFileName(String fileName)
+	{
+		  TypedQuery<OutputRegister> query = em.createQuery("from OutputRegister o where o.fileName = ?", OutputRegister.class)
+		  .setParameter(1, fileName);
+		  return query.getResultList();
+	}
+	
 	public List<OutputRegister> listAll()
 	{
-		  TypedQuery<OutputRegister> query = em.createQuery("FROM outputRegister c", OutputRegister.class);
-		  List<OutputRegister> results = query.getResultList();
-		  return results;
+		  TypedQuery<OutputRegister> query = em.createQuery("from OutputRegister", OutputRegister.class);
+		  return query.getResultList();
 	}
 }
