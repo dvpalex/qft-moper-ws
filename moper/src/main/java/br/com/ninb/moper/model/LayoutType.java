@@ -29,6 +29,9 @@ public class LayoutType implements Serializable{
     @Column(name = "LAYOUTYPE_ID")
 	private Long  layoutTypeId;
 	
+	@Column(name = "COLNAME", nullable = false, length = 80)
+	private String colName;
+	
     @Column(name = "DESCRIPTION", nullable = false, length = 80)
 	private String description;
 	
@@ -119,8 +122,13 @@ public class LayoutType implements Serializable{
 		this.description = description;
 	}
 
+	public String getColName() {
+		return colName;
+	}
 
-	
+	public void setColName(String colName) {
+		this.colName = colName;
+	}
 
 	@Override
 	public int hashCode() {

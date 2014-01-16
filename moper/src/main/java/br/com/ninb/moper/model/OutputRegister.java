@@ -65,13 +65,10 @@ public class OutputRegister implements Serializable {
 	public OutputRegister(){
 		
 	}	
-	
-	
 
 	public Long getOutputRegisterId() {
 		return outputRegisterId;
 	}
-
 
 
 	public void setOutputRegisterId(Long outputRegisterId) {
@@ -84,19 +81,13 @@ public class OutputRegister implements Serializable {
 		return detailCount;
 	}
 
-
-
 	public void setDetailCount(Long detailCount) {
 		this.detailCount = detailCount;
 	}
 
-
-
 	public Date getGenerateDate() {
 		return generateDate;
 	}
-
-
 
 	public void setGenerateDate(Date generateDate) {
 		this.generateDate = generateDate;
