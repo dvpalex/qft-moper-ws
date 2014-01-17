@@ -76,8 +76,7 @@
         </p:column>     
        
         <p:column headerText="">  
-         #{register.outputRegisterId} - #{outputRegisterBean.outputRegister.outputRegisterId}
-            <p:commandButton process="@this registers" value="Show" actionListener="#{outputRegisterBean.showMessage}" ajax="true" update=":form3">
+            <p:commandButton process="@this registers" value="Show" action="#{outputRegisterBean.showMessage}" ajax="true" update=":form3">
             	<f:setPropertyActionListener value="#{register.outputRegisterId}" target="#{outputRegisterBean.outputRegister.outputRegisterId}" />
             </p:commandButton>     
         </p:column>        
