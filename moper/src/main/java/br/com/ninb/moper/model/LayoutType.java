@@ -93,6 +93,13 @@ public class LayoutType implements Serializable{
 		this.layouts = layouts;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Long getLayoutTypeId() {
 		return layoutTypeId;

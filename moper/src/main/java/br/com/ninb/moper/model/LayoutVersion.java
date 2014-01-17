@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -40,7 +39,7 @@ public class LayoutVersion implements Serializable{
 	private Date generateDate;
 	
 	@Column(name = "VERSIONLAYOUT", nullable = false)
-	private long versionLayout;
+	private Long versionLayout;
 	
 	@Column(name = "DESCR", length = 80)
 	private String descr;
@@ -48,7 +47,6 @@ public class LayoutVersion implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
 	private LayoutType layoutType;
-	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutVersion")
     @LazyCollection(LazyCollectionOption.TRUE)
@@ -97,20 +95,20 @@ public class LayoutVersion implements Serializable{
 		this.layouts = layouts;
 	}
 
-	public long getLayoutVersionId() {
+	public Long getLayoutVersionId() {
 		return layoutVersionId;
 	}
 
 
-	public void setLayoutVersionId(long layoutVersionId) {
+	public void setLayoutVersionId(Long layoutVersionId) {
 		this.layoutVersionId = layoutVersionId;
 	}
 
-	public long getVersionLayout() {
+	public Long getVersionLayout() {
 		return versionLayout;
 	}
 
-	public void setVersion(long versionLayout) {
+	public void setVersion(Long versionLayout) {
 		this.versionLayout = versionLayout;
 	}
 
