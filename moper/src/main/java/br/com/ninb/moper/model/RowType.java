@@ -26,7 +26,7 @@ public class RowType implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ROWTYPE_ID")
-	private long rowTypeId;
+	private Long rowTypeId;
 	
 	@Column(name = "DESCR", length = 80)
 	private String descr;
@@ -62,11 +62,11 @@ public class RowType implements Serializable {
 		this.layouts = layouts;
 	}
 
-	public long getRowTypeId() {
+	public Long getRowTypeId() {
 		return rowTypeId;
 	}
 
-	public void setRowTypeId(long rowTypeId) {
+	public void setRowTypeId(Long rowTypeId) {
 		this.rowTypeId = rowTypeId;
 	}
 

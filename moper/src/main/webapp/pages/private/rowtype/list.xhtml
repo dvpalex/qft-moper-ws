@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://br.com.cardif.etl/facelets">
+
+<h:body>
+				<h1>Row Type</h1>
+				<h:form id="form1">
+					<h:panelGrid columns="4" style="border: 0; background: none; padding: 0px; width: 500px">
+							<h:outputText value="Description:"/>
+							<p:inputText id="description" value="#{rowTypeBean.rowType.descr}" size="70"/>										
+							<p:commandButton id="search" value="Search" icon="ui-icon-search" action="#{rowTypeBean.search}" update=":contentform"/>
+							<p:commandButton id="add" value="Add" icon="ui-icon-plus" action="#{rowTypeBean.add}" update=":contentform"/>								
+					</h:panelGrid>
+				</h:form>
+				
+				<h:form id="form2">
+														
+					<p:dataTable var="type" value="#{rowTypeBean.types}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >				
+						<p:column headerText="ID" width="80">  
+            				<h:outputText value="#{type.rowTypeId}"/>
+        				</p:column>
+						<p:column headerText="Description">  
+            				<h:outputText value="#{type.descr}"/>
+        				</p:column>  
+						<p:column headerText="" width="40">					
+							<p:commandButton value="Edit" action="#{rowTypeBean.edit}" update=":contentform"> 
+								<f:setPropertyActionListener value="#{type}" target="#{rowTypeBean.rowType}" />
+							</p:commandButton>	
+						</p:column>	
+						<p:column headerText="" width="40">					
+							<p:commandButton action="#{rowTypeBean.delete}" value="Delete" update=":contentform">
+								<p:confirm header="Confirmação de exclusão" message="Deseja realmente excluir esse registro?" icon="ui-icon-alert" /> 
+								<f:setPropertyActionListener value="#{type}" target="#{rowTypeBean.rowType}" />
+							</p:commandButton>
+						</p:column>			
+					</p:dataTable>		
+					
+					<p:confirmDialog global="true" showEffect="fade" id="delete">
+        				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":contentform"/>  
+       					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+    				</p:confirmDialog>
+    					
+				</h:form>						
+	
+</h:body> 
+</ui:composition>         

@@ -21,9 +21,7 @@ public class MenuBean {
 	
 		DefaultMenuItem subItem = null;
 		
-		/* Dicionario Menu */	
-				
-		
+		/* Dicionario Menu */
 		subItem = new DefaultMenuItem("Layout Type");
 		subItem.setIcon("ui-icon-bullet");
 		subItem.setCommand("#{layoutTypeBean.list}");
@@ -44,39 +42,6 @@ public class MenuBean {
 		subItem.setAjax(false);
 		
 		model.addElement(subItem);
-		
-		subItem = new DefaultMenuItem("Output");
-		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{outputRegisterBean.list}");
-		subItem.setAjax(false);
-		
-		model.addElement(subItem);
-		
-		/* Layout Type Menu */
-
-		/*
-		subItem = new DefaultMenuItem("Layout Type");
-		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{jobBean.list}");
-		subItem.setAjax(false);
-
-		model.addElement(subItem);
-		*/
-		
-		/* Output Register Menu */
-
-		/*
-		subItem = new DefaultMenuItem(getMessage("menu.schedule"));
-		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{scheduleBean.list}");
-		subItem.setAjax(false);
-		
-		model.addElement(subItem);
-		*/
-		
-		//model.addElement(subMenu);
-
-
 	}
 
 	public MenuModel getModel() {
