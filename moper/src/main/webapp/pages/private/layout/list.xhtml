@@ -1,36 +1,90 @@
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+<!DOCTYPE html>
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				xmlns:t="http://br.com.cardif.etl/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://br.com.cardif.etl/facelets">
 
-
-<h:form id="frmLayout">
-	<p:panel id="btns">
-		<p:commandButton value="add field" />
-	</p:panel>
-	<p:dataTable var="var" id="fields" value="#{layoutBean.list}" >
-			<p:column headerText="#ID" width="80">  
-          				<h:outputText value="#{obj.layoutTypeId}"></h:outputText>
-			</p:column>
-			<p:column headerText="Field" value="#{obj.description}">
-			</p:column>
-			<p:column headerText="Begin" value="#{obj.beginField}">
-			</p:column>
-			<p:column headerText="End" value="#{obj.endField}">
-			</p:column>
-			<p:column headerText="Lenght" value="#{obj.beginField}">
-			</p:column>
+<h:body>
+				<h1>Layout</h1>
+				<h:form id="form1">
+					<h:panelGrid columns="2" style="border: 0; background: none; padding: 0px; width: 550px">
+							<h:outputText value="Layout Name: "/>
+							<p:inputText id="layoutName" value="#{layoutBean.layout.colName}" size="70"/>
+							<h:outputText value="Layout Type Name: "/>
+							<p:selectOneMenu id="layoutType" value="#{layoutBean.layout.layoutType.layoutTypeId}"> 
+                				<f:selectItem itemLabel="Select layout type..." itemValue="" />
+                				<f:selectItems value="#{layoutBean.types}" /> 
+            				</p:selectOneMenu>															
+							<p:commandButton id="search" value="Search" icon="ui-icon-search" action="#{layoutBean.search}" update=":contentform"/>
+							<p:commandButton id="add" value="Add" icon="ui-icon-plus" action="#{layoutBean.add}" update=":contentform"/>								
+					</h:panelGrid>
+				</h:form>
 				
-	</p:dataTable>
-
-</h:form>
-</ui:composition>
-</html>
+				<h:form id="form2">
+														
+					<p:dataTable var="layout" value="#{layoutBean.layouts}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >				
+						<p:column headerText="" width="10">	
+							<p:commandButton action="#{layoutBean.delete}" icon="ui-icon-carat-1-n" update=":contentform" style="width: 20px; height: 20px">
+								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
+							</p:commandButton>
+						</p:column>	
+						<p:column headerText="" width="10">			
+							<p:commandButton action="#{layoutBean.delete}" icon="ui-icon-carat-1-s" update=":contentform" style="width: 20px; height: 20px">
+								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
+							</p:commandButton>
+						</p:column>		
+						<p:column headerText="Index" width="20">  
+            				<h:outputText value="#{layout.indexField}"/>
+        				</p:column>
+        				<p:column headerText="Name">  
+            				<h:outputText value="#{layout.colName}"/>
+        				</p:column> 
+						<p:column headerText="Description">  
+            				<h:outputText value="#{layout.descr}"/>
+        				</p:column>       				
+        				<p:column headerText="Begin">  
+            				<h:outputText value="#{layout.beginField}"/>
+        				</p:column>  
+        				<p:column headerText="End">  
+            				<h:outputText value="#{layout.endField}"/>
+        				</p:column> 
+        				<p:column headerText="Lenght">  
+            				<h:outputText value="#{layout.lenghtField}"/>
+        				</p:column>
+        				<p:column headerText="Type">  
+            				<h:outputText value="#{layout.typeCol}"/>
+        				</p:column>  
+        				<p:column headerText="Layout Type">  
+            				<h:outputText value="#{layout.layoutType.name}"/>
+        				</p:column>  
+        				<p:column headerText="Layout Version" width="50">  
+            				<h:outputText value="#{layout.layoutVersion.versionLayout}"/>
+        				</p:column> 
+        				<p:column headerText="Row Type">  
+            				<h:outputText value="#{layout.rowType.descr}"/>
+        				</p:column> 
+						<p:column headerText="" width="10">					
+							<p:commandButton action="#{layoutBean.edit}" icon="ui-icon-pencil" update=":contentform"> 
+								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
+							</p:commandButton>	
+						</p:column>	
+						<p:column headerText="" width="10">					
+							<p:commandButton action="#{layoutBean.delete}" icon="ui-icon-trash" update=":contentform">
+								<p:confirm header="Confirmação de exclusão" message="Deseja realmente excluir esse registro?" icon="ui-icon-alert" /> 
+								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
+							</p:commandButton>
+						</p:column>			
+					</p:dataTable>		
+					
+					<p:confirmDialog global="true" showEffect="fade" id="delete">
+        				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":contentform"/>  
+       					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+    				</p:confirmDialog>
+    					
+				</h:form>						
+	
+</h:body> 
+</ui:composition>         

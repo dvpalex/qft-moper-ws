@@ -28,12 +28,12 @@
             				<h:outputText value="#{type.descr}"/>
         				</p:column>  
 						<p:column headerText="" width="40">					
-							<p:commandButton value="Edit" action="#{rowTypeBean.edit}" update=":contentform"> 
+							<p:commandButton value="Edit" action="#{rowTypeBean.edit}" icon="ui-icon-pencil" update=":contentform"> 
 								<f:setPropertyActionListener value="#{type}" target="#{rowTypeBean.rowType}" />
 							</p:commandButton>	
 						</p:column>	
 						<p:column headerText="" width="40">					
-							<p:commandButton action="#{rowTypeBean.delete}" value="Delete" update=":contentform">
+							<p:commandButton action="#{rowTypeBean.delete}" value="Delete" icon="ui-icon-close" update=":contentform">
 								<p:confirm header="Confirmação de exclusão" message="Deseja realmente excluir esse registro?" icon="ui-icon-alert" /> 
 								<f:setPropertyActionListener value="#{type}" target="#{rowTypeBean.rowType}" />
 							</p:commandButton>

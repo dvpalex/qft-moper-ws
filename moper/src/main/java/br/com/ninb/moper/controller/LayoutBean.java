@@ -1,8 +1,10 @@
 package br.com.ninb.moper.controller;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import static br.com.ninb.moper.util.JSFUtils.push;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,68 +16,110 @@ import br.com.ninb.moper.model.Layout;
 import br.com.ninb.moper.model.LayoutType;
 import br.com.ninb.moper.service.LayoutService;
 import br.com.ninb.moper.service.LayoutTypeService;
-import static br.com.ninb.moper.util.JSFUtils.pop;
-import static br.com.ninb.moper.util.JSFUtils.push;
-
 
 @ManagedBean(name="layoutBean")
 @SessionScoped
 @Component
-public class LayoutBean implements Serializable {
-	
-	private static final long serialVersionUID = -7492988458428054716L;
-
-	protected List<Layout> list;
-	private Layout instance = new Layout();
-		
+public class LayoutBean 
+{
+	private Layout layout;
+	private List<Layout> layouts;
 	@Autowired
-	protected LayoutService service;
+	private LayoutService service;
+	@Autowired
+	private LayoutTypeService serviceType;
+	private Map<String, Long> types = new HashMap<String, Long>();
 	
-	private LayoutType layoutType;
+	public LayoutBean() {
+		super();
+	}
 
-	public void save(){
-		Boolean isNew = (instance.getLayoutId() == null);
-		service.save(instance);
-		pop();
+	public void add()
+	{	
+		layout = new Layout();
+		layout.setLayoutType(new LayoutType());
+		push("/pages/private/layout/new");
 	}
 	
+	public void save()
+	{	
+		service.save(layout);	
+		layout = new Layout();
+		layout.setLayoutType(new LayoutType());
+		list();
+	}
 	
-	public void list(){
+	public void delete()
+	{
+		service.delete(layout);
+		list();
+	}
+	
+	public void search()
+	{
+		if(layout.getLayoutType().getLayoutTypeId() == 0 && layout.getColName() == ""){
+			list();
+		}else{		
+				layouts = service.listByLayout(layout);
+				push("/pages/private/layout/list");
+		}	
+	}
+	
+	public void list()
+	{
+		layouts = service.listAll();
+		layout = new Layout();
+		layout.setLayoutType(new LayoutType());
+		
+		for(LayoutType type : serviceType.listAll()){
+			types.put(type.getName(),type.getLayoutTypeId());
+		}
+		
 		push("/pages/private/layout/list");
-		this.list = service.list(layoutType.getLayoutTypeId());
-	}
-	
-	public void view(){
-		push("/pages/private/layout/list");
-	}
-	
-
-	public List<Layout> getList() {
-		return list;
 	}
 
-	public void setList(List<Layout> list) {
-		this.list = list;
+	public void edit() 
+	{ 
+		push("/pages/private/layout/edit");
 	}
 
-	public Layout getInstance() {
-		return instance;
+	public Layout getLayout() {
+		return layout;
 	}
 
-	public void setInstance(Layout instance) {
-		this.instance = instance;
+	public void setLayout(Layout layout) {
+		this.layout = layout;
 	}
 
-
-	public LayoutType getLayoutType() {
-		return layoutType;
+	public List<Layout> getLayouts() {
+		return layouts;
 	}
 
-
-	public void setLayoutType(LayoutType layoutType) {
-		this.layoutType = layoutType;
+	public void setLayouts(List<Layout> layouts) {
+		this.layouts = layouts;
 	}
-	
-	
-	
+
+	public LayoutService getService() {
+		return service;
+	}
+
+	public void setService(LayoutService service) {
+		this.service = service;
+	}
+
+	public LayoutTypeService getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(LayoutTypeService serviceType) {
+		this.serviceType = serviceType;
+	}
+
+	public Map<String, Long> getTypes() {
+		return types;
+	}
+
+	public void setTypes(Map<String, Long> types) {
+		this.types = types;
+	}
 }

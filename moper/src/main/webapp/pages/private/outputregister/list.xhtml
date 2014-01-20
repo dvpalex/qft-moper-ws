@@ -8,13 +8,12 @@
 	xmlns:t="http://br.com.cardif.etl/facelets">
 <h:body>
 				
-	<p:panel header="Output" style="margin-bottom:5px">
-	
+	<h1>Layout</h1>
 	<h:form id="form1">
-	 <h:panelGrid columns="3" rules="1" border="0" cellpadding="0" cellspacing="5">
+	 <h:panelGrid columns="3" style="border: 0; background: none; padding: 0px; width: 500px">
 			<h:outputLabel value="File name:"/>
-			<p:inputText id="fileName" style="width: 300px" value="#{outputRegisterBean.outputRegister.fileName}"/>
-			<p:commandButton id="buscarPorNome" value="Search" action="#{outputRegisterBean.findByFileName}" ajax="false"/>
+			<p:inputText id="fileName" size="70" value="#{outputRegisterBean.outputRegister.fileName}"/>
+			<p:commandButton id="buscarPorNome" value="Search" icon="ui-icon-search" action="#{outputRegisterBean.findByFileName}" ajax="false"/>
 	 </h:panelGrid>
 	</h:form>
 	
@@ -37,7 +36,7 @@
             <p:calendar value="#{outputRegisterBean.firstDate}" id="dataInicio" />           
             <h:outputLabel value="End date:"/>
             <p:calendar value="#{outputRegisterBean.lastDate}" id="dataFim" /> 
-            <p:commandButton id="buscaAvancada" value="Search" action="#{outputRegisterBean.find}" ajax="false"/>     
+            <p:commandButton id="buscaAvancada" value="Search" icon="ui-icon-search" action="#{outputRegisterBean.find}" ajax="false"/>     
         </h:panelGrid>		
 	</h:form>
 
@@ -98,8 +97,6 @@
         </p:column>       
     </p:dataTable>
 	</h:form>		
-
-	</p:panel>
 		
 </h:body> 
 </ui:composition>

@@ -9,80 +9,46 @@
 
 <h:body>
 				<h1>Layout Type</h1>
-				<h:form>
-					<h:panelGrid columns="2" style="border: 0; background: none; padding: 0px;">
-							<h:outputText value="Description"/>
-							<p:inputText id="description" value="#{layoutTypeBean.description}" styleClass="form_field_large"/>		
-					
-						<f:facet name="footer">
-						
-							<p:commandButton id="search" value="#{msg['button.search']}"
-							icon="ui-icon-search"
-							action="#{layoutTypeBean.search}"
-							update=":contentform" />
-		
-							<p:commandButton id="add" value="Adicionar"
-							icon="ui-icon-plus"
-							action="#{layoutTypeBean.add}"
-							update=":contentform"
-							 />				
-						</f:facet>
-					
+				<h:form id="form1">
+					<h:panelGrid columns="4" style="border: 0; background: none; padding: 0px; width: 500px">
+							<h:outputText value="Description:"/>
+							<p:inputText id="description" value="#{layoutTypeBean.layoutType.descr}" size="70"/>										
+							<p:commandButton id="search" value="Search" icon="ui-icon-search" action="#{layoutTypeBean.search}" update=":contentform"/>
+							<p:commandButton id="add" value="Add" icon="ui-icon-plus" action="#{layoutTypeBean.add}" update=":contentform"/>								
 					</h:panelGrid>
-									
-						
-					<p:dataTable var="obj" value="#{layoutTypeBean.list}" paginator="true" rows="10"  
-		        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-		        rowsPerPageTemplate="5,10,15">
-						
-						
-						
-						<p:column headerText="#ID" width="80">  
-            				<h:outputText value="#{obj.layoutTypeId}"></h:outputText>
-        				</p:column>
-						<p:column headerText="Descricao">  
-            				<h:outputText value="#{obj.description}"></h:outputText>
-        				</p:column>  
-						<p:column headerText="Editar" width="40">
-										<p:column>
-	
-								<p:commandButton
-									icon="ui-icon-search"
-									title="View"
-									action="#{layoutTypeBean.view}"
-									update=":contentform">
-									<f:setPropertyActionListener value="#{obj}"
-										target="#{layoutTypeBean.instance}" />
-								</p:commandButton>
-						</p:column>
-					
-					<p:column headerText="Layout" width="40">
-							<p:commandButton
-							icon="ui-icon-search"
-							title="Layout"
-							action="#{layoutBean.list}"
-							update=":contentform">
-							<f:setPropertyActionListener value="#{obj}"
-								target="#{layoutBean.layoutType}" />
-						</p:commandButton>
-				</p:column>
-						
-							
-							<!-- 
-							<p:commandButton
-								icon="ui-icon-search"
-								title="Editar"
-								action="#{jobBean.view}"
-								update=":content">
-								<f:setPropertyActionListener value="#{job}"
-								target="#{jobBean.instance}" />
-							</p:commandButton>
-							 -->
-								
-						</p:column>						
-					</p:dataTable>		
-		
 				</h:form>
+				
+				<h:form id="form2">
+														
+					<p:dataTable var="type" value="#{layoutTypeBean.types}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >				
+						<p:column headerText="ID" width="80">  
+            				<h:outputText value="#{type.layoutTypeId}"/>
+        				</p:column>
+        				<p:column headerText="Name">  
+            				<h:outputText value="#{type.name}"/>
+        				</p:column> 
+						<p:column headerText="Description">  
+            				<h:outputText value="#{type.descr}"/>
+        				</p:column>  
+						<p:column headerText="" width="40">					
+							<p:commandButton value="Edit" action="#{layoutTypeBean.edit}" icon="ui-icon-pencil" update=":contentform"> 
+								<f:setPropertyActionListener value="#{type}" target="#{layoutTypeBean.layoutType}" />
+							</p:commandButton>	
+						</p:column>	
+						<p:column headerText="" width="40">					
+							<p:commandButton action="#{layoutTypeBean.delete}" value="Delete" icon="ui-icon-close" update=":contentform">
+								<p:confirm header="Confirmação de exclusão" message="Deseja realmente excluir esse registro?" icon="ui-icon-alert" /> 
+								<f:setPropertyActionListener value="#{type}" target="#{layoutTypeBean.layoutType}" />
+							</p:commandButton>
+						</p:column>			
+					</p:dataTable>		
+					
+					<p:confirmDialog global="true" showEffect="fade" id="delete">
+        				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":contentform"/>  
+       					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+    				</p:confirmDialog>
+    					
+				</h:form>						
 	
 </h:body> 
 </ui:composition>         

@@ -22,6 +22,13 @@ public class MenuBean {
 		DefaultMenuItem subItem = null;
 		
 		/* Dicionario Menu */
+		subItem = new DefaultMenuItem("Layout");
+		subItem.setIcon("ui-icon-bullet");
+		subItem.setCommand("#{layoutBean.list}");
+		subItem.setAjax(false);
+		
+		model.addElement(subItem);
+		
 		subItem = new DefaultMenuItem("Layout Type");
 		subItem.setIcon("ui-icon-bullet");
 		subItem.setCommand("#{layoutTypeBean.list}");

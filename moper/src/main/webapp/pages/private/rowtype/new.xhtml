@@ -8,21 +8,18 @@
 	xmlns:t="http://br.com.cardif.etl/facelets">
 <h:body>
 	<h:form>
-		<p:panelGrid columns="3" style="border: 0; background: none; padding: 0px; width: 620px">
-			<p:row>
-				<p:column>
-					<p:outputLabel for="descrition">Description: </p:outputLabel>
-				</p:column>
-				<p:column>
-					<p:inputText id="descrition" value="#{rowTypeBean.rowType.descr}" size="70" required="true" requiredMessage="* The description field is required.">
-					</p:inputText>
-				</p:column>
-				<p:column>
-					<p:commandButton value="Save" type="submit" action="#{rowTypeBean.save}" update=":contentform" />
-					<p:commandButton value="Cancel" type="submit" action="#{rowTypeBean.list}" update=":contentform" immediate="true"/>
-				</p:column>	
-			</p:row>
-		</p:panelGrid>
+	
+		<p:panelGrid columns="2">  
+    		<f:facet name="header">Add Row Type</f:facet>  
+			<p:outputLabel for="descrition" value="Description: "/>  
+			<p:inputText id="descrition" value="#{rowTypeBean.rowType.descr}" maxlength="80" size="70" required="true" requiredMessage="* The description field is required."/>
+    		<f:facet name="footer" >  
+       			
+				<p:commandButton value="Cancel" type="submit" action="#{rowTypeBean.list}" update=":contentform" icon="ui-icon-arrowreturnthick-1-w" immediate="true" style="float:right"/>  
+				<p:commandButton value="Save" type="submit" action="#{rowTypeBean.save}" update=":contentform" icon="ui-icon-check" style="float:right"/>
+    		</f:facet>  
+		</p:panelGrid>  
+		
 	</h:form>
 </h:body> 
-</ui:composition>         
+</ui:composition>   

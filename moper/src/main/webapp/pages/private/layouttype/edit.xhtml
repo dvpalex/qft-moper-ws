@@ -8,15 +8,20 @@
 	xmlns:t="http://br.com.cardif.etl/facelets">
 <h:body>
 	<h:form>
-		<p:panelGrid columns="2">
-					<p:outputLabel for="descrition" value="Description" />
-					<p:inputText id="descrition" value="#{layoutTypeBean.instance.description}" />
-					
-					<f:facet name="footer">
-						<p:commandButton value="Salvar" type="submit" action="#{layoutTypeBean.save}" update=":contentform" />
-						<p:commandButton value="cancelar" type="submit" action="#{layoutTypeBean.cancel}" immediate="true" update=":contentform" />
-					</f:facet>
-		</p:panelGrid>
+	
+		<p:panelGrid columns="2">  
+    		<f:facet name="header">Edit Layout Type</f:facet>  
+    		<p:outputLabel for="name" value="Name: "/> 
+			<p:inputText id="name" value="#{layoutTypeBean.layoutType.name}" size="30" maxlength="80" required="true" requiredMessage="* The name field is required."/>
+    		<p:outputLabel for="descrition" value="Description: "/>  
+			<p:inputText id="descrition" value="#{layoutTypeBean.layoutType.descr}" maxlength="80" size="70" required="true" requiredMessage="* The description field is required."/>
+    		<f:facet name="footer" >  
+       			
+				<p:commandButton value="Cancel" type="submit" action="#{layoutTypeBean.list}" update=":contentform" icon="ui-icon-arrowreturnthick-1-w" immediate="true" style="float:right"/>  
+				<p:commandButton value="Update" type="submit" action="#{layoutTypeBean.save}" update=":contentform" icon="ui-icon-check" style="float:right"/>
+    		</f:facet>  
+		</p:panelGrid>  
+		
 	</h:form>
 </h:body> 
-</ui:composition>         
+</ui:composition>        

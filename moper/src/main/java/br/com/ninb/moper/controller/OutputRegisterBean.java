@@ -94,7 +94,7 @@ public class OutputRegisterBean
 		try{
 				push("/pages/private/outputregister/list");
 				listOutputRegister = service.listAll();		
-				for(LayoutType type : layoutTypeService.list()){
+				for(LayoutType type : layoutTypeService.listAll()){
 					types.put(type.getDescr(),type.getLayoutTypeId());
 				}
 				
