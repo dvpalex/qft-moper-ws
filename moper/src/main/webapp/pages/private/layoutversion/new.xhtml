@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://br.com.cardif.etl/facelets">
+<h:body>
+	<h:form>
+	
+		<p:panelGrid columns="2">  
+    		<f:facet name="header">Add Layout Version</f:facet>  
+	   		<p:outputLabel for="descrition" value="Description: "/>  
+			<p:inputText id="descrition" value="#{layoutVersionBean.layoutVersion.descr}" maxlength="80" size="70" required="true" requiredMessage="* The description field is required."/>
+			<p:outputLabel for="version" value="Version Layout: "/>  
+			<p:inputText id="version" value="#{layoutVersionBean.layoutVersion.versionLayout}" maxlength="80" size="70" required="true" requiredMessage="* The version layout field is required."/>
+    		<h:outputText value="Layout Type Name: "/>
+			<p:selectOneMenu id="layoutType" value="#{layoutVersionBean.layoutVersion.layoutType.layoutTypeId}" required="true" requiredMessage="* The layout type name field is required."> 
+               <f:selectItem itemLabel="Select layout type..." itemValue="" />
+               <f:selectItems value="#{layoutVersionBean.types}" /> 
+            </p:selectOneMenu>
+    		<f:facet name="footer" >   			
+				<p:commandButton value="Cancel" type="submit" action="#{layoutVersionBean.list}" update=":contentform" icon="ui-icon-arrowreturnthick-1-w" immediate="true" style="float:right"/>  
+				<p:commandButton value="Save" type="submit" action="#{layoutVersionBean.save}" update=":contentform" icon="ui-icon-check" style="float:right"/>
+    		</f:facet>  
+		</p:panelGrid>  
+		
+	</h:form>
+</h:body> 
+</ui:composition>      

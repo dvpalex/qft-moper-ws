@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -53,11 +51,9 @@ public class Layout implements Serializable {
 	@Column(name = "DESCR", nullable = false, length = 80)
 	private String descr;
 	
-
 	@Column(name = "COLNAME", nullable = false, length = 80)
 	private String colName;
-	
-	
+		
 	@ManyToOne
 	@JoinColumn(name = "ROWTYPE_ID", nullable = false)
 	private RowType rowType;
@@ -69,7 +65,6 @@ public class Layout implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "LAYOUTVERSION_ID", nullable = false)
 	private LayoutVersion layoutVersion;
-
 	
 	@ManyToMany
     @LazyCollection(LazyCollectionOption.TRUE)
@@ -85,97 +80,138 @@ public class Layout implements Serializable {
 	public void setLayoutId(Long layoutId) {
 		this.layoutId = layoutId;
 	}
-	
-	public TypeColEnum getTypeCol() {
-		return typeCol;
-	}
-
-	public void setTypeCol(TypeColEnum typeCol) {
-		this.typeCol = typeCol;
-	}
 
 	public int getIndexField() {
 		return indexField;
 	}
 
+
+
 	public void setIndexField(int indexField) {
 		this.indexField = indexField;
 	}
+
+
 
 	public int getBeginField() {
 		return beginField;
 	}
 
+
+
 	public void setBeginField(int beginField) {
 		this.beginField = beginField;
 	}
+
+
 
 	public int getEndField() {
 		return endField;
 	}
 
+
+
 	public void setEndField(int endField) {
 		this.endField = endField;
 	}
+
+
 
 	public int getLenghtField() {
 		return lenghtField;
 	}
 
+
+
 	public void setLenghtField(int lenghtField) {
 		this.lenghtField = lenghtField;
 	}
+
+
+
+	public TypeColEnum getTypeCol() {
+		return typeCol;
+	}
+
+
+
+	public void setTypeCol(TypeColEnum typeCol) {
+		this.typeCol = typeCol;
+	}
+
+
 
 	public String getDescr() {
 		return descr;
 	}
 
-	public void setDesc(String descr) {
+
+
+	public void setDescr(String descr) {
 		this.descr = descr;
 	}
+
+
+
+	public String getColName() {
+		return colName;
+	}
+
+
+
+	public void setColName(String colName) {
+		this.colName = colName;
+	}
+
+
 
 	public RowType getRowType() {
 		return rowType;
 	}
 
+
+
 	public void setRowType(RowType rowType) {
 		this.rowType = rowType;
 	}
+
+
+
+	public LayoutType getLayoutType() {
+		return layoutType;
+	}
+
+
+
+	public void setLayoutType(LayoutType layoutType) {
+		this.layoutType = layoutType;
+	}
+
+
 
 	public LayoutVersion getLayoutVersion() {
 		return layoutVersion;
 	}
 
+
+
 	public void setLayoutVersion(LayoutVersion layoutVersion) {
 		this.layoutVersion = layoutVersion;
 	}
-	
-	public LayoutType getLayoutType() {
-		return layoutType;
-	}
 
-	public void setLayoutType(LayoutType layoutType) {
-		this.layoutType = layoutType;
-	}
-	
-	
+
+
 	public List<LayoutVersion> getLayoutVersions() {
 		return layoutVersions;
 	}
+
+
 
 	public void setLayoutVersions(List<LayoutVersion> layoutVersions) {
 		this.layoutVersions = layoutVersions;
 	}
 
-	
-	
-	public String getColName() {
-		return colName;
-	}
 
-	public void setColName(String colName) {
-		this.colName = colName;
-	}
 
 	@Override
 	public int hashCode() {

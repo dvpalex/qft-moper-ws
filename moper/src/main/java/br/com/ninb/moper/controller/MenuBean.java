@@ -28,7 +28,7 @@ public class MenuBean {
 		subItem.setAjax(false);
 		
 		model.addElement(subItem);
-		
+
 		subItem = new DefaultMenuItem("Layout Type");
 		subItem.setIcon("ui-icon-bullet");
 		subItem.setCommand("#{layoutTypeBean.list}");

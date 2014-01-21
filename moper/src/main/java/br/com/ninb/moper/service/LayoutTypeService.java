@@ -23,6 +23,12 @@ public class LayoutTypeService
 		  return query.getSingleResult();
 	}
 	
+	public LayoutType selectById(Long id)
+	{
+		  TypedQuery<LayoutType> query = em.createQuery("from LayoutType where layoutTypeId = ?", LayoutType.class)
+		 .setParameter(1, id);
+		  return query.getSingleResult();
+	}
 	
 	public List<LayoutType> listAll()
 	{
