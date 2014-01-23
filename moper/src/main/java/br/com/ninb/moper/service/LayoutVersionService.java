@@ -17,8 +17,14 @@ public class LayoutVersionService
 	protected EntityManager em;
 
 	public List<LayoutVersion> listByType(Long layoutVersionId){
-		TypedQuery<LayoutVersion> query = em.createQuery("from LayoutVersion l where l.LayoutVersion.LayoutVersionId = ?", LayoutVersion.class);
+		TypedQuery<LayoutVersion> query = em.createQuery("from LayoutVersion l where l.layoutVersion.layoutVersionId = ?", LayoutVersion.class);
 		query.setParameter(1, layoutVersionId);
+		return query.getResultList();
+	}
+	
+	public List<LayoutVersion> listByLayoutTypeId(Long layouTypeTId){
+		TypedQuery<LayoutVersion> query = em.createQuery("from LayoutVersion l where l.layoutType.layoutTypeId = ? order by l.generateDate", LayoutVersion.class);
+		query.setParameter(1, layouTypeTId);
 		return query.getResultList();
 	}
 	
@@ -28,7 +34,6 @@ public class LayoutVersionService
 		 .setParameter(1, description);
 		  return query.getSingleResult();
 	}
-	
 	
 	public List<LayoutVersion> listAll()
 	{

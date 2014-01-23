@@ -1,12 +1,16 @@
 package br.com.ninb.moper.service;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import br.com.ninb.moper.model.Layout;
 
 @Configurable
@@ -36,46 +40,69 @@ public class LayoutService
 		  return query.getResultList();
 	}
 	
+	public List<Layout> listByLayoutTypeId(Long layoutTypeId)
+	{
+		TypedQuery<Layout> query = em.createQuery("from Layout l where l.layoutType.layoutTypeId = ?", Layout.class)
+		.setParameter(1, layoutTypeId);
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Layout> listByLayout(Layout layout)
 	{       
 		StringBuilder sql = new StringBuilder();	
-		sql.append("from Layout l where l.colName like ? ");
+		sql.append("from Layout l where l.descr like ? ");
 		
-		if(layout.getLayoutType().getLayoutTypeId() != 0){
-		sql.append("and l.layoutType.layoutTypeId = ? ");
+		if(layout.getLayoutVersion().getLayoutType().getLayoutTypeId() != 0){
+			sql.append("and l.layoutVersion.layoutType.layoutTypeId = ? ");
 		}
-		
 		if(layout.getRowType().getRowTypeId() != 0){
-		sql.append("and l.rowType.rowTypeId = ? ");
+			sql.append("and l.rowType.rowTypeId = ? ");
+		}	
+		if(layout.getLayoutVersion().getLayoutVersionId() != 0){		
+			sql.append("and l.layoutVersion.layoutVersionId = ? ");
 		}
+
+		Query query = em.createQuery(sql.toString(), Layout.class);
 		
-		sql.append("order by l.rowType.descr");	
+		int count = 1;
+				
+		query.setParameter(count, "%"+layout.getDescr()+"%");
 		
-		TypedQuery<Layout> query = em.createQuery(sql.toString(), Layout.class);
+		count++;
 		
-		query.setParameter(1, "%"+layout.getColName()+"%");
-		
-		if(layout.getLayoutType().getLayoutTypeId() != 0){
-			query.setParameter(2, layout.getLayoutType().getLayoutTypeId());	
+		if(layout.getLayoutVersion().getLayoutType().getLayoutTypeId() != 0){
+			query.setParameter(count, layout.getLayoutVersion().getLayoutType().getLayoutTypeId());	
+			count++;
+		}	
+		if(layout.getRowType().getRowTypeId() != 0){
+			query.setParameter(count, layout.getRowType().getRowTypeId());
+			count++;
+		}		
+		if(layout.getLayoutVersion().getLayoutVersionId() != 0){		
+			query.setParameter(count, layout.getLayoutVersion().getLayoutVersionId());
 		}
-		
-		if(layout.getRowType().getRowTypeId() != 0 && layout.getLayoutType().getLayoutTypeId() != 0){
-			query.setParameter(3, layout.getRowType().getRowTypeId());
-		}else if(layout.getRowType().getRowTypeId() != 0 && layout.getLayoutType().getLayoutTypeId() == 0){
-			query.setParameter(2, layout.getRowType().getRowTypeId());
-		}
-		
+			
 		return query.getResultList();
 	}
 	
 	@Transactional
-	public void save(Layout row)
+	public void save(Layout layout)
 	{
-		if(row.getLayoutId() == null){
-			em.persist(row);
+		if(layout.getLayoutId() == null){
+			em.persist(layout);
 		}else{
-			em.merge(row);
+			em.merge(layout);
 		}	  
+	}
+	
+	@Transactional
+	public void saveAll(List<Layout> layouts)
+	{
+		for(Layout layout : layouts)
+		{			
+			save(layout);
+		}  
 	}
 	
 	@Transactional
@@ -90,7 +117,7 @@ public class LayoutService
 		try{
 			TypedQuery<Layout> query = em.createQuery("from Layout l where l.indexField = ? and l.layoutType.layoutTypeId = ? and l.layoutVersion.layoutVersionId = ?", Layout.class)
 					 .setParameter(1, layout.getIndexField())
-					 .setParameter(2, layout.getLayoutType().getLayoutTypeId())
+					 .setParameter(2, layout.getLayoutVersion().getLayoutType().getLayoutTypeId())
 					 .setParameter(3, layout.getLayoutVersion().getLayoutVersionId());
 					  
 				if(query.getSingleResult() != null){

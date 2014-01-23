@@ -3,152 +3,195 @@ package br.com.ninb.moper.controller;
 import static br.com.ninb.moper.util.JSFUtils.push;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+
+import org.primefaces.component.layout.LayoutUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import br.com.ninb.moper.model.Layout;
 import br.com.ninb.moper.model.LayoutType;
+import br.com.ninb.moper.model.LayoutVersion;
 import br.com.ninb.moper.model.RowType;
-import br.com.ninb.moper.model.TypeColEnum;
 import br.com.ninb.moper.service.LayoutService;
 import br.com.ninb.moper.service.LayoutTypeService;
+import br.com.ninb.moper.service.LayoutVersionService;
 import br.com.ninb.moper.service.RowTypeService;
+import br.com.ninb.moper.util.LayoutUtil;
 
 @ManagedBean(name="layoutBean")
 @SessionScoped
 @Component
-public class LayoutBean 
+public class LayoutBean extends LayoutGeneric
 {
-	private Layout layout;
-	private List<Layout> layouts;
 	@Autowired
 	private LayoutService service;
 	@Autowired
 	private LayoutTypeService serviceType;
 	@Autowired
+	private LayoutVersionService serviceVersion;
+	@Autowired
 	private RowTypeService serviceRowType;
-	private List<SelectItem> types;
-	private List<SelectItem> rowTypes;
-	private TypeColEnum[] columTypes;
-	
-	private List<Layout> listLayoutLogicalAdd = new ArrayList<Layout>();
-	private List<Layout> listLayoutLogicalEdit = new ArrayList<Layout>();
-	private List<Layout> listLayoutLogicalDel = new ArrayList<Layout>();
-	
+
 	public LayoutBean() {
 		super();
-	}
-	
-	public List<SelectItem> getRowTypes()
-	{
-		rowTypes = new ArrayList<SelectItem>();
-		
-		for(RowType type : serviceRowType.listAll())
-		{
-			rowTypes.add( new SelectItem(type.getRowTypeId(), type.getDescr()));		
-		}
-		
-		return rowTypes;
-	}
-	
-	public List<SelectItem> getTypes()
-	{
-		types = new ArrayList<SelectItem>();
-		
-		for(LayoutType type : serviceType.listAll())
-		{
-			types.add( new SelectItem(type.getLayoutTypeId(), type.getName()));		
-		}
-		
-		return types;
 	}
 		
 	public void create()
 	{	
-		layout.setLayoutType(serviceType.selectById(layout.getLayoutType().getLayoutTypeId()));
+		layout = new Layout();
+		layout.setLayoutVersion(new LayoutVersion());
+		layout.getLayoutVersion().setLayoutType(new LayoutType());
 		layout.setRowType(new RowType());
-		columTypes = TypeColEnum.values();		
-		push("/pages/private/layout/new");
+		push("/pages/private/layout/create");
+	}
+		
+	public void newLayout()
+	{	
+		if(serviceVersion.listByLayoutTypeId(layout.getLayoutVersion().getLayoutType().getLayoutTypeId()).size() == 0)
+		{
+			layout.getLayoutVersion().setLayoutType(serviceType.selectById(layout.getLayoutVersion().getLayoutType().getLayoutTypeId()));
+			layout.setRowType(new RowType());
+			layouts = new ArrayList<Layout>();
+			push("/pages/private/layout/new");
+			
+		}else{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Já existe uma versão para o Layout Type escolhido."));
+				push("/pages/private/layout/create");
+		}
 	}
 	
 	public void add()
 	{	
-		for(SelectItem item : types){
-			if(item.getValue() == layout.getLayoutType().getLayoutTypeId()){
-				layout.getLayoutType().setName(item.getLabel());
-				break;
-			}
+		boolean isValid = true;
+			
+		if(layout.getLenghtField() < 0){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "O campo lenght não pode ser negativo."));
+			isValid = false;
+					
+		}else if(layout.getBeginField() == layout.getEndField() || layout.getBeginField() == 0 || layout.getEndField() == 0){		
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Os campos initial e final comtém valores não permitidos."));
+			isValid = false;
+		
+		}else if(layout.getIndexField() <= 0){			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "O campo index contém valor inválido."));
+			isValid = false;
+		
+		}else{	
+				for(SelectItem item : getLayoutTypes()){
+					if(item.getValue() == layout.getLayoutVersion().getLayoutType().getLayoutTypeId()){
+						layout.getLayoutVersion().getLayoutType().setName(item.getLabel());
+						break;
+					}
+				}	
+		
+				for(SelectItem item : getRowTypes()){
+					if(item.getValue() == layout.getRowType().getRowTypeId()){
+						layout.getRowType().setDescr(item.getLabel());
+						break;
+					}
+				}
+			
+				for(Layout layout : layouts){
+					if(layout.getIndexField() == this.layout.getIndexField() && layout.getRowType().getRowTypeId() == this.layout.getRowType().getRowTypeId()){
+						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Index já utilizado."));
+						isValid = false;
+						break;
+					}else if(layout.getBeginField() <= this.layout.getBeginField() && layout.getEndField() >= this.layout.getEndField()){
+						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Os campos initial e final comtém valores já utilizados."));
+						isValid = false;
+						break;
+					}
+				}
+		
+				if(isValid){
+					LayoutType type = layout.getLayoutVersion().getLayoutType();				
+					layouts.add(layout);
+					layout = new Layout();
+					layout.setLayoutVersion(new LayoutVersion());
+					layout.getLayoutVersion().setLayoutType(type);
+					layout.setRowType(new RowType());
+				}
 		}
 		
-		for(SelectItem item : rowTypes){
-			if(item.getValue() == layout.getRowType().getRowTypeId()){
-				layout.getRowType().setDescr(item.getLabel());
-				break;
-			}
+		if(layout.getLayoutVersion().getLayoutVersionId() != null){
+			push("/pages/private/layout/edit");
+		}else{
+			push("/pages/private/layout/new");
 		}
+	}
 		
-		LayoutType type = layout.getLayoutType();				
-		listLayoutLogicalAdd.add(layout);
-		layout = new Layout();
-		layout.setLayoutType(type);
-		layout.setRowType(new RowType());
-		push("/pages/private/layout/new");
-	}
-	
-	public void select()
-	{
-		push("/pages/private/layout/new1");
-	}
-	
 	public void save()
 	{	
-		service.save(layout);	
-		layout = new Layout();
-		layout.setLayoutType(new LayoutType());
-		layout.setRowType(new RowType());	
-		list();
-	}
-	
-	public void saveLogical()
-	{			
-		for(SelectItem item : types){
-			if(item.getValue() == layout.getLayoutType().getLayoutTypeId()){
-				layout.getLayoutType().setName(item.getLabel());
-				break;
-			}
-		}
+		try{	
+				LayoutVersion layoutVersion = new LayoutVersion();
+				layoutVersion.setGenerateDate(new Date());
+				layoutVersion.setLayoutType(layout.getLayoutVersion().getLayoutType());			
 		
-		for(SelectItem item : rowTypes){
-			if(item.getValue() == layout.getRowType().getRowTypeId()){
-				layout.getRowType().setDescr(item.getLabel());
-				break;
-			}
-		}
-		
-		listLayoutLogicalAdd.add(layout);
-		list();
-		layouts.addAll(0,listLayoutLogicalAdd);
-	}
+				for(Layout layout : layouts)
+				{
+					if(layout.getLayoutVersion().getLayoutVersionId() != null){
+						this.layout.setLayoutVersion(layout.getLayoutVersion());
+						break;
+					}
+				}
+			
+				if(layout.getLayoutVersion().getLayoutVersionId() == null)
+				{
+					layoutVersion.setVersion(1L);
+					layoutVersion.setDescr("Version "+layoutVersion.getVersionLayout());
 	
+					for(Layout layout : layouts){
+						layout.setLayoutVersion(layoutVersion);
+					}
+							
+				}else{
+						layoutVersion.setVersion(layout.getLayoutVersion().getVersionLayout() + 1);
+						layoutVersion.setDescr("Version "+layoutVersion.getVersionLayout());
+				
+						for(Layout layout : layouts){
+							layout.setLayoutId(null);
+							layout.setLayoutVersion(layoutVersion);
+						}				
+				}
+		
+				service.saveAll(layouts);	
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "A versão "+layoutVersion.getVersionLayout()+" foi gerada para o layout type "+layoutVersion.getLayoutType().getName()+"."));	
+				list();
+		
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+		
 	public void delete()
 	{
 		service.delete(layout);
 		list();
 	}
 	
+	
 	public void deleteLogical()
 	{		
-		layouts.remove(layout);
+		LayoutUtil util = new LayoutUtil();
+		layouts = util.updateData(layouts, layout);
+		
+		//layouts.remove(layout);
 	}
 	
 	public void search()
 	{
-		if(layout.getLayoutType().getLayoutTypeId() == 0 && layout.getColName() == "" && layout.getRowType().getRowTypeId() == 0){
-			list();
-		}else{		
+		if(layout.getLayoutVersion().getLayoutType().getLayoutTypeId() == 0){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Select a layout type."));
+		}else if(layout.getLayoutVersion().getLayoutVersionId() == 0){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Select a layout version."));
+		}else{
 				layouts = service.listByLayout(layout);
 				push("/pages/private/layout/list");
 		}	
@@ -156,9 +199,10 @@ public class LayoutBean
 	
 	public void list()
 	{
-		layouts = service.listAll();
+		layouts = new ArrayList<Layout>();
 		layout = new Layout();
-		layout.setLayoutType(new LayoutType());
+		layout.setLayoutVersion(new LayoutVersion());
+		layout.getLayoutVersion().setLayoutType(new LayoutType());
 		layout.setRowType(new RowType());	
 		push("/pages/private/layout/list");
 	}
@@ -167,76 +211,10 @@ public class LayoutBean
 	{ 
 		push("/pages/private/layout/edit");
 	}
-
-	public Layout getLayout() {
-		return layout;
-	}
-
-	public void setLayout(Layout layout) {
-		this.layout = layout;
-	}
-
-	public List<Layout> getLayouts() {
-		return layouts;
-	}
-
-	public void setLayouts(List<Layout> layouts) {
-		this.layouts = layouts;
-	}
-
-	public LayoutService getService() {
-		return service;
-	}
-
-	public void setService(LayoutService service) {
-		this.service = service;
-	}
-
-	public LayoutTypeService getServiceType() {
-		return serviceType;
-	}
-
-	public void setServiceType(LayoutTypeService serviceType) {
-		this.serviceType = serviceType;
-	}
-
-	public TypeColEnum[] getColumTypes() {
-		return columTypes;
-	}
-
-	public void setColumTypes(TypeColEnum[] columTypes) {
-		this.columTypes = columTypes;
-	}
-
-	public RowTypeService getServiceRowType() {
-		return serviceRowType;
-	}
-
-	public void setServiceRowType(RowTypeService serviceRowType) {
-		this.serviceRowType = serviceRowType;
-	}
-
-	public List<Layout> getListLayoutLogicalAdd() {
-		return listLayoutLogicalAdd;
-	}
-
-	public void setListLayoutLogicalAdd(List<Layout> listLayoutLogicalAdd) {
-		this.listLayoutLogicalAdd = listLayoutLogicalAdd;
-	}
-
-	public List<Layout> getListLayoutLogicalEdit() {
-		return listLayoutLogicalEdit;
-	}
-
-	public void setListLayoutLogicalEdit(List<Layout> listLayoutLogicalEdit) {
-		this.listLayoutLogicalEdit = listLayoutLogicalEdit;
-	}
-
-	public List<Layout> getListLayoutLogicalDel() {
-		return listLayoutLogicalDel;
-	}
-
-	public void setListLayoutLogicalDel(List<Layout> listLayoutLogicalDel) {
-		this.listLayoutLogicalDel = listLayoutLogicalDel;
+	
+	public void editLayout() 
+	{ 	
+		layouts.remove(layout);		
+		push("/pages/private/layout/edit");
 	}
 }

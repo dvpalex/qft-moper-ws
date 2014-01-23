@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -53,16 +56,20 @@ public class Layout implements Serializable {
 	
 	@Column(name = "COLNAME", nullable = false, length = 80)
 	private String colName;
+	
+	@ManyToOne
+	@JoinColumn(name = "LAYOUTSTATUS_ID", nullable = true)
+	private LayoutStatus layoutStatus;
 		
 	@ManyToOne
 	@JoinColumn(name = "ROWTYPE_ID", nullable = false)
 	private RowType rowType;
 	
-	@ManyToOne
-	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
-	private LayoutType layoutType;
+	//@ManyToOne
+	//@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
+	//private LayoutType layoutType;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "LAYOUTVERSION_ID", nullable = false)
 	private LayoutVersion layoutVersion;
 	
@@ -85,143 +92,105 @@ public class Layout implements Serializable {
 		return indexField;
 	}
 
-
-
 	public void setIndexField(int indexField) {
 		this.indexField = indexField;
 	}
-
-
 
 	public int getBeginField() {
 		return beginField;
 	}
 
-
-
 	public void setBeginField(int beginField) {
 		this.beginField = beginField;
 	}
-
-
 
 	public int getEndField() {
 		return endField;
 	}
 
-
-
 	public void setEndField(int endField) {
 		this.endField = endField;
 	}
-
-
 
 	public int getLenghtField() {
 		return lenghtField;
 	}
 
-
-
 	public void setLenghtField(int lenghtField) {
 		this.lenghtField = lenghtField;
 	}
-
-
 
 	public TypeColEnum getTypeCol() {
 		return typeCol;
 	}
 
-
-
 	public void setTypeCol(TypeColEnum typeCol) {
 		this.typeCol = typeCol;
 	}
-
-
 
 	public String getDescr() {
 		return descr;
 	}
 
-
-
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
-
-
 
 	public String getColName() {
 		return colName;
 	}
 
-
-
 	public void setColName(String colName) {
 		this.colName = colName;
 	}
 
+	public LayoutStatus getLayoutStatus() {
+		return layoutStatus;
+	}
 
+	public void setLayoutStatus(LayoutStatus layoutStatus) {
+		this.layoutStatus = layoutStatus;
+	}
 
 	public RowType getRowType() {
 		return rowType;
 	}
 
-
-
 	public void setRowType(RowType rowType) {
 		this.rowType = rowType;
 	}
 
+	//public LayoutType getLayoutType() {
+	//	return layoutType;
+	//}
 
-
-	public LayoutType getLayoutType() {
-		return layoutType;
-	}
-
-
-
-	public void setLayoutType(LayoutType layoutType) {
-		this.layoutType = layoutType;
-	}
-
-
+	//public void setLayoutType(LayoutType layoutType) {
+	//	this.layoutType = layoutType;
+	//}
 
 	public LayoutVersion getLayoutVersion() {
 		return layoutVersion;
 	}
 
-
-
 	public void setLayoutVersion(LayoutVersion layoutVersion) {
 		this.layoutVersion = layoutVersion;
 	}
-
-
 
 	public List<LayoutVersion> getLayoutVersions() {
 		return layoutVersions;
 	}
 
-
-
 	public void setLayoutVersions(List<LayoutVersion> layoutVersions) {
 		this.layoutVersions = layoutVersions;
 	}
 
-
-
-	@Override
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (layoutId ^ (layoutId >>> 32));
 		return result;
-	}
-
-	
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {
@@ -237,8 +206,8 @@ public class Layout implements Serializable {
 		return true;
 	}
 
-
-	
-	
-	
+	public void count()
+	{
+		lenghtField = endField - beginField;
+	}
 }

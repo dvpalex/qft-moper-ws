@@ -44,9 +44,9 @@ public class LayoutType implements Serializable{
     @LazyCollection(LazyCollectionOption.TRUE)
 	private List<OutputRegister> outputRegisters = new ArrayList<OutputRegister>();
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")
-    @LazyCollection(LazyCollectionOption.TRUE)
-	private List<Layout> layouts = new ArrayList<Layout>();
+	//@OneToMany(cascade = CascadeType.ALL, mappedBy = "layoutType")
+    //@LazyCollection(LazyCollectionOption.TRUE)
+	//private List<Layout> layouts = new ArrayList<Layout>();
 
 	
 	public LayoutType(){
@@ -84,14 +84,14 @@ public class LayoutType implements Serializable{
 	}
 
 
-	public List<Layout> getLayouts() {
-		return layouts;
-	}
+	//public List<Layout> getLayouts() {
+	//	return layouts;
+	//}
 
 
-	public void setLayouts(List<Layout> layouts) {
-		this.layouts = layouts;
-	}
+	//public void setLayouts(List<Layout> layouts) {
+	//	this.layouts = layouts;
+	//}
 
 	public String getName() {
 		return name;
