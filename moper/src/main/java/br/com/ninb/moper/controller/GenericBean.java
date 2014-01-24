@@ -22,8 +22,10 @@ import br.com.ninb.moper.service.RowTypeService;
 
 public class GenericBean
 {
+	protected static LayoutType layoutType;
+	protected static List<Layout> layouts;
+	
 	protected Layout layout;
-	protected List<Layout> layouts;
 	private List<SelectItem> layoutTypes;
 	private List<SelectItem> rowTypes;
 	private List<SelectItem> layoutVersions;
@@ -82,6 +84,14 @@ public class GenericBean
 		}
 		
 		push("/pages/private/layout/list");
+	}
+	
+	public void resetLayout(LayoutType layoutType)
+	{
+		layout = new Layout();
+		layout.setLayoutVersion(new LayoutVersion());
+		layout.getLayoutVersion().setLayoutType(layoutType);
+		layout.setRowType(new RowType());
 	}
 
 	public TypeColEnum[] getColumTypes() {
@@ -143,5 +153,11 @@ public class GenericBean
 	}
 	public void setLayouts(List<Layout> layouts) {
 		this.layouts = layouts;
+	}
+	public LayoutType getLayoutType() {
+		return layoutType;
+	}
+	public void setLayoutType(LayoutType layoutType) {
+		this.layoutType = layoutType;
 	}
 }

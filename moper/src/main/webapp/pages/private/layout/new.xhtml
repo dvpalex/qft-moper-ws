@@ -9,7 +9,7 @@
 <h:body>
 	<h:form id="form1">
 	
-	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<p:growl id="growl" showDetail="true" sticky="true" /> 
 	
 		<p:panelGrid columns="4">  
     		<f:facet name="header">Create new Layout - #{layoutBean.layout.layoutVersion.layoutType.name}</f:facet>  
@@ -49,9 +49,9 @@
 			<p:inputText id="index" value="#{layoutBean.layout.indexField}" maxlength="5" size="2" required="true" requiredMessage="* The index field is required."/>
     		  		
     		<f:facet name="footer" >       			
-				<p:commandButton value="Cancel" type="submit" action="#{layoutBean.list}" update=":contentform" icon="ui-icon-arrowreturnthick-1-w" immediate="true" style="float:right"/>  
-				<p:commandButton value="Add" type="submit" action="#{layoutBean.add}" icon="ui-icon-plus" style="float:right" ajax="false"/>
-				<p:commandButton value="Save" type="submit" action="#{layoutBean.save}" icon="ui-icon-check" style="float:right" ajax="false" immediate="true"/>
+				<p:commandButton value="Cancel" type="submit" action="#{layoutTypeBean.list}" update=":contentform" icon="ui-icon-arrowreturnthick-1-w" immediate="true" style="float:right"/>  
+				<p:commandButton value="Add" type="submit" action="#{layoutBean.addLayout}" icon="ui-icon-plus" style="float:right" ajax="false"/>
+				<p:commandButton value="Save" type="submit" action="#{layoutBean.saveLayout}" icon="ui-icon-check" style="float:right" ajax="false" immediate="true"/>
     		</f:facet>  
 		</p:panelGrid>  
 		

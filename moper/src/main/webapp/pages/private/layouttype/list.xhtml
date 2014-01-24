@@ -34,12 +34,6 @@
 							<p:commandButton value="Edit" action="#{layoutTypeBean.edit}" icon="ui-icon-pencil" update=":contentform"> 
 								<f:setPropertyActionListener value="#{type}" target="#{layoutTypeBean.layoutType}" />
 							</p:commandButton>	
-						</p:column>	
-						<p:column headerText="" width="40">					
-							<p:commandButton action="#{layoutTypeBean.delete}" value="Delete" icon="ui-icon-close" update=":contentform">
-								<p:confirm header="Confirmação de exclusão" message="Deseja realmente excluir esse registro?" icon="ui-icon-alert" /> 
-								<f:setPropertyActionListener value="#{type}" target="#{layoutTypeBean.layoutType}" />
-							</p:commandButton>
 						</p:column>			
 					</p:dataTable>		
 					

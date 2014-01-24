@@ -44,7 +44,7 @@ public class LayoutVersion implements Serializable{
 	@Column(name = "DESCR", length = 80)
 	private String descr;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
 	private LayoutType layoutType;
 	
@@ -75,7 +75,7 @@ public class LayoutVersion implements Serializable{
 
 
 	public void setGenerateDate(Date generateDate) {
-		this.generateDate = generateDate;
+		this.generateDate = new Date();
 	}
 
 	public LayoutType getLayoutType() {

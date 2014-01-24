@@ -69,7 +69,7 @@ public class Layout implements Serializable {
 	//@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
 	//private LayoutType layoutType;
 	
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "LAYOUTVERSION_ID", nullable = false)
 	private LayoutVersion layoutVersion;
 	

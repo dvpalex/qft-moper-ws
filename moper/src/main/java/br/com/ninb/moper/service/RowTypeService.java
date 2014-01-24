@@ -27,6 +27,14 @@ public class RowTypeService
 	}
 	
 	
+	public RowType selectById(Long id)
+	{
+		  TypedQuery<RowType> query = em.createQuery("from RowType where rowTypeId = ?", RowType.class)
+		 .setParameter(1, id);
+		  return query.getSingleResult();
+	}
+	
+	
 	public List<RowType> listAll()
 	{
 		  TypedQuery<RowType> query = em.createQuery("from RowType order by rowTypeId desc", RowType.class);

@@ -1,5 +1,6 @@
 package br.com.ninb.moper.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ninb.moper.model.Layout;
+import br.com.ninb.moper.model.LayoutVersion;
 
 @Configurable
 @Component
@@ -42,7 +44,7 @@ public class LayoutService
 	
 	public List<Layout> listByLayoutTypeId(Long layoutTypeId)
 	{
-		TypedQuery<Layout> query = em.createQuery("from Layout l where l.layoutType.layoutTypeId = ?", Layout.class)
+		TypedQuery<Layout> query = em.createQuery("from Layout l where l.layoutVersion.layoutType.layoutTypeId = ?", Layout.class)
 		.setParameter(1, layoutTypeId);
 		return query.getResultList();
 	}
@@ -89,7 +91,10 @@ public class LayoutService
 	@Transactional
 	public void save(Layout layout)
 	{
-		if(layout.getLayoutId() == null){
+		if(layout.getLayoutId() == null){	
+			layout.getLayoutVersion().setGenerateDate(new Date());
+			layout.getLayoutVersion().setVersion(1L);
+			layout.getLayoutVersion().setLayoutVersionId(null);
 			em.persist(layout);
 		}else{
 			em.flush();

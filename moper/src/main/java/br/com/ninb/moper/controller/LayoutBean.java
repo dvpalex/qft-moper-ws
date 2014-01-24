@@ -4,9 +4,11 @@ import static br.com.ninb.moper.util.JSFUtils.push;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -29,13 +31,105 @@ public class LayoutBean extends GenericBean
 	{
 		super();
 	}
-		
-	/* create */
 	
+	/* Direcionar para a tela de cadastro de layout */
+	public void configureLayout()
+	{	
+		try{
+				resetLayout(layoutType);
+				layouts = new ArrayList<Layout>();
+				push("/pages/private/layout/new");
+				
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}	
+	}
 	
+	/* Adicionar layout */
+	public void addLayout()
+	{
+		try{
+				/* Validar layout */
+				if(isValidLayout()){
+					
+					layout.setRowType(rowTypeService.selectById(layout.getRowType().getRowTypeId()));	
+									
+					/* Adicionando na lista de layouts */
+					layouts.add(layout);				
+					/* Setando valores */
+					resetLayout(layoutType);
+					
+				}else{
+					
+				}
+
+				push("/pages/private/layout/new");
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
 	
+	/* Salvar layout */
+	public void saveLayout()
+	{
+		try{
+				/* Salvar layouts */
+				layoutService.saveAll(layouts);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Warnning", "Layout type salvo com sucesso!"));  
+				push("/pages/private/layout/new");
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
 	
-	
+	//TODO - Passar para outra classe
+	private boolean isValidLayout()
+	{
+		try{
+				FacesContext context = FacesContext.getCurrentInstance(); 
+			
+				/* Validar index */
+				if(layout.getIndexField() <= 0){			
+					context.addMessage(null, new FacesMessage("Warnning", "Invalid index!"));  
+					return false;
+				}			
+				/* Validar intervalo */
+				if(layout.getBeginField() == layout.getEndField() || layout.getBeginField() == 0 || layout.getEndField() == 0){		
+					context.addMessage(null, new FacesMessage("Warnning", "Invalid data begin and end!"));
+					return false;
+				}				
+				/* Validar lenght */
+				if(layout.getLenghtField() < 0){
+					context.addMessage(null, new FacesMessage("Warnning", "Invalid lenght!"));
+					return false;
+				}
+				
+				for(Layout layout : layouts)
+				{
+					/* Validar se index foi utilizado */
+					if(this.layout.getLayoutId() == null && (this.layout.getIndexField() == layout.getIndexField()) && (layout.getRowType().getRowTypeId() == this.layout.getRowType().getRowTypeId()))
+					{
+						context.addMessage(null, new FacesMessage("Warnning", "Index já utilizado!"));
+						return false;
+					}
+					
+					/* Validar se o intervalo é permitido */
+					if(layout.getEndField() >= this.layout.getBeginField() && this.layout.getLayoutId() == null && (layout.getRowType().getRowTypeId() == this.layout.getRowType().getRowTypeId()))
+					{
+						context.addMessage(null, new FacesMessage("Warnning", "Os campos initial e final comtém valores já utilizados!"));
+						return false;
+					}
+				}
+				
+				return true;
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+	}
 	
 	
 	
@@ -66,6 +160,10 @@ public class LayoutBean extends GenericBean
 			ex.printStackTrace();
 		}
 	}
+	
+	
+	
+	
 	
 	public void add()
 	{	
@@ -138,15 +236,13 @@ public class LayoutBean extends GenericBean
 				}				
 		}
 		
-		if(layouts.get(0).getLayoutVersion().getLayoutVersionId() != null){
-			push("/pages/private/layout/edit");
-		}else{
+		//if(layouts.get(0).getLayoutVersion().getLayoutVersionId() != null){
+		//	push("/pages/private/layout/edit");
+		//}else{
 			push("/pages/private/layout/new");
-		}
+		//}
 	}
 
-	
-	
 	public void save()
 	{	
 		try{	
@@ -219,6 +315,19 @@ public class LayoutBean extends GenericBean
 		push("/pages/private/layout/list");
 	}
 
+	public void editLayout() 
+	{ 
+		if(layout.getLayoutVersion().getLayoutType().getLayoutTypeId() == 0){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Select a layout type for edit."));
+		}else if(layout.getLayoutVersion().getLayoutVersionId() == 0){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Select a layout version for edit."));
+		}else if(layout.getRowType().getRowTypeId() == 0){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Select a row type for edit."));
+		}else{		
+				push("/pages/private/layout/edit");
+		}
+	}
+	
 	public void edit() 
 	{ 
 		if(layout.getLayoutVersion().getLayoutType().getLayoutTypeId() == 0){
@@ -228,7 +337,7 @@ public class LayoutBean extends GenericBean
 		}else if(layout.getRowType().getRowTypeId() == 0){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "Select a row type for edit."));
 		}else{	
-				//layouts = layoutService.listByLayout(layout);		
+				layouts = layoutService.listByLayout(layout);		
 				push("/pages/private/layout/edit");
 		}
 	}
@@ -238,13 +347,5 @@ public class LayoutBean extends GenericBean
 		layoutService.saveAll(layouts);	
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", "A versão foi atualizada com sucesso."));	
 		list();
-	}
-	
-	private void resetLayout(LayoutType layoutType)
-	{
-		layout = new Layout();
-		layout.setLayoutVersion(new LayoutVersion());
-		layout.getLayoutVersion().setLayoutType(layoutType);
-		layout.setRowType(new RowType());
 	}
 }

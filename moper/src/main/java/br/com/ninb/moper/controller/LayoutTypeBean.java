@@ -12,10 +12,11 @@ import br.com.ninb.moper.service.LayoutTypeService;
 @ManagedBean(name="layoutTypeBean")
 @SessionScoped
 @Component
-public class LayoutTypeBean 
+public class LayoutTypeBean extends GenericBean
 {
-	private LayoutType layoutType;
+	//private LayoutType layoutType;
 	private List<LayoutType> types;
+	
 	@Autowired
 	private LayoutTypeService service;
 	
@@ -28,7 +29,7 @@ public class LayoutTypeBean
 		layoutType = new LayoutType();
 		push("/pages/private/layouttype/new");
 	}
-	
+		
 	public void save()
 	{	
 		service.save(layoutType);	
@@ -57,7 +58,9 @@ public class LayoutTypeBean
 	
 	public void edit() 
 	{ 
-		push("/pages/private/layouttype/edit");
+		resetLayout(layoutType);
+		layouts = layoutService.listByLayoutTypeId(layoutType.getLayoutTypeId());		
+		push("/pages/private/layout/edit");
 	}
 	
 	public List<LayoutType> getTypes() {
@@ -68,19 +71,7 @@ public class LayoutTypeBean
 		this.types = types;
 	}
 
-	public LayoutTypeService getService() {
-		return service;
-	}
-
 	public void setService(LayoutTypeService service) {
 		this.service = service;
-	}
-
-	public LayoutType getLayoutType() {
-		return layoutType;
-	}
-
-	public void setLayoutType(LayoutType LayoutType) {
-		this.layoutType = LayoutType;
 	}
 }
