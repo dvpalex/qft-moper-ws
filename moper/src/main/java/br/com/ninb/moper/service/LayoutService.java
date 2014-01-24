@@ -92,6 +92,7 @@ public class LayoutService
 		if(layout.getLayoutId() == null){
 			em.persist(layout);
 		}else{
+			em.flush();
 			em.merge(layout);
 		}	  
 	}

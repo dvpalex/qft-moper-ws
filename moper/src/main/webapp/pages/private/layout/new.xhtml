@@ -100,12 +100,12 @@
             				<h:outputText value="#{layout.rowType.descr}"/>
         				</p:column> 
 						<p:column headerText="" width="10">					
-							<p:commandButton action="#{layoutBean.editLayout}" icon="ui-icon-pencil" update=":contentform"> 
+							<p:commandButton action="#{layoutBean.edit}" icon="ui-icon-pencil" update=":contentform"> 
 								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
 							</p:commandButton>	
 						</p:column>	
 						<p:column headerText="" width="10">					
-							<p:commandButton action="#{layoutBean.deleteLogical}" icon="ui-icon-trash" update=":contentform">
+							<p:commandButton action="#{layoutBean.delete}" icon="ui-icon-trash" update=":contentform">
 								<p:confirm header="Confirmação de exclusão" message="Deseja realmente excluir esse registro?" icon="ui-icon-alert" /> 
 								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
 							</p:commandButton>

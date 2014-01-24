@@ -39,7 +39,7 @@
             		<f:facet name="footer" >             																		
 						<p:commandButton id="search" value="Search" icon="ui-icon-search" action="#{layoutBean.search}" update=":contentform" style="float:right"/>
 						<p:commandButton id="create" value="Create Layout" icon="ui-icon-plus" action="#{layoutBean.create}" update=":contentform" style="float:right" immediate="true"/>
-						<p:commandButton id="edit" rendered="#{layoutBean.layouts.size() > 0}" value="Edit Layout" icon="ui-icon-plus" action="#{layoutBean.edit}" update=":contentform" style="float:right" immediate="true"/>				
+						<p:commandButton id="edit" value="Edit Layout" icon="ui-icon-plus" action="#{layoutBean.edit}" update=":contentform" style="float:right"/>				
 					</f:facet>
 					
 					</h:panelGrid>
@@ -50,7 +50,7 @@
 				<h:form id="form3" rendered="#{layoutBean.layouts.size() > 0}">
 														
 					<p:dataTable var="layout" value="#{layoutBean.layouts}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >				
-						<p:column headerText="" width="10">	
+						<!--p:column headerText="" width="10">	
 							<p:commandButton action="#{layoutBean.delete}" icon="ui-icon-carat-1-n" update=":contentform" style="width: 20px; height: 20px">
 								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
 							</p:commandButton>
@@ -59,7 +59,7 @@
 							<p:commandButton action="#{layoutBean.delete}" icon="ui-icon-carat-1-s" update=":contentform" style="width: 20px; height: 20px">
 								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
 							</p:commandButton>
-						</p:column>		
+						</p:column-->		
 						<p:column headerText="Index" width="20">  
             				<h:outputText value="#{layout.indexField}"/>
         				</p:column>
@@ -90,7 +90,7 @@
         				<p:column headerText="Row Type">  
             				<h:outputText value="#{layout.rowType.descr}"/>
         				</p:column> 
-						<p:column headerText="" width="10">					
+						<!--p:column headerText="" width="10">					
 							<p:commandButton action="#{layoutBean.editLayout}" icon="ui-icon-pencil" update=":contentform"> 
 								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
 							</p:commandButton>	
@@ -100,7 +100,7 @@
 								<p:confirm header="Confirmação de exclusão" message="Deseja realmente excluir esse registro?" icon="ui-icon-alert" /> 
 								<f:setPropertyActionListener value="#{layout}" target="#{layoutBean.layout}" />
 							</p:commandButton>
-						</p:column>			
+						</p:column-->			
 					</p:dataTable>		
 					
 					<p:confirmDialog global="true" showEffect="fade" id="delete">

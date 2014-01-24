@@ -15,11 +15,12 @@ import br.com.ninb.moper.model.LayoutVersion;
 import br.com.ninb.moper.model.RowType;
 import br.com.ninb.moper.model.TypeColEnum;
 import br.com.ninb.moper.service.LayoutService;
+import br.com.ninb.moper.service.LayoutStatusService;
 import br.com.ninb.moper.service.LayoutTypeService;
 import br.com.ninb.moper.service.LayoutVersionService;
 import br.com.ninb.moper.service.RowTypeService;
 
-public class LayoutGeneric
+public class GenericBean
 {
 	protected Layout layout;
 	protected List<Layout> layouts;
@@ -27,13 +28,15 @@ public class LayoutGeneric
 	private List<SelectItem> rowTypes;
 	private List<SelectItem> layoutVersions;
 	@Autowired
-	private LayoutService service;
+	protected LayoutService layoutService;
 	@Autowired
-	private LayoutTypeService serviceType;
+	protected LayoutTypeService layoutTypeService;
 	@Autowired
-	private LayoutVersionService serviceVersion;
+	protected LayoutVersionService layoutVersionService;
 	@Autowired
-	private RowTypeService serviceRowType;
+	protected RowTypeService rowTypeService;
+	@Autowired
+	protected LayoutStatusService layoutStatusService;
 	
 	private LayoutVersion layoutVersion;
 	
@@ -41,7 +44,7 @@ public class LayoutGeneric
 	{
 		rowTypes = new ArrayList<SelectItem>();
 		
-		for(RowType type : serviceRowType.listAll()){
+		for(RowType type : rowTypeService.listAll()){
 			rowTypes.add( new SelectItem(type.getRowTypeId(), type.getDescr()));		
 		}
 		
@@ -52,7 +55,7 @@ public class LayoutGeneric
 	{
 		layoutTypes = new ArrayList<SelectItem>();
 		
-		for(LayoutType type : serviceType.listAll()){
+		for(LayoutType type : layoutTypeService.listAll()){
 			layoutTypes.add( new SelectItem(type.getLayoutTypeId(), type.getName()));		
 		}
 		
@@ -63,7 +66,7 @@ public class LayoutGeneric
 	{
 		layoutVersions = new ArrayList<SelectItem>();
 		
-		for(LayoutVersion version : serviceVersion.listByLayoutTypeId(layout.getLayoutVersion().getLayoutType().getLayoutTypeId())){
+		for(LayoutVersion version : layoutVersionService.listByLayoutTypeId(layout.getLayoutVersion().getLayoutType().getLayoutTypeId())){
 			layoutVersions.add( new SelectItem(version.getLayoutVersionId(), version.getDescr()));		
 		}
 		
@@ -74,7 +77,7 @@ public class LayoutGeneric
 	{
 		layoutVersions = new ArrayList<SelectItem>();
 		
-		for(LayoutVersion version : serviceVersion.listByLayoutTypeId(layout.getLayoutVersion().getLayoutType().getLayoutTypeId())){
+		for(LayoutVersion version : layoutVersionService.listByLayoutTypeId(layout.getLayoutVersion().getLayoutType().getLayoutTypeId())){
 			layoutVersions.add( new SelectItem(version.getLayoutVersionId(), version.getDescr()));		
 		}
 		
@@ -84,71 +87,60 @@ public class LayoutGeneric
 	public TypeColEnum[] getColumTypes() {
 		return TypeColEnum.values();
 	}
-
 	public LayoutService getService() {
-		return service;
+		return layoutService;
 	}
-
 	public void setService(LayoutService service) {
-		this.service = service;
+		this.layoutService = service;
 	}
-
 	public LayoutTypeService getServiceType() {
-		return serviceType;
+		return layoutTypeService;
 	}
-
 	public void setServiceType(LayoutTypeService serviceType) {
-		this.serviceType = serviceType;
+		this.layoutTypeService = serviceType;
 	}
-
 	public LayoutVersionService getServiceVersion() {
-		return serviceVersion;
+		return layoutVersionService;
 	}
-
 	public void setServiceVersion(LayoutVersionService serviceVersion) {
-		this.serviceVersion = serviceVersion;
+		this.layoutVersionService = serviceVersion;
 	}
-
 	public RowTypeService getServiceRowType() {
-		return serviceRowType;
+		return rowTypeService;
 	}
-
 	public void setServiceRowType(RowTypeService serviceRowType) {
-		this.serviceRowType = serviceRowType;
+		this.rowTypeService = serviceRowType;
 	}
-
+	public LayoutStatusService getLayoutStatusService() {
+		return layoutStatusService;
+	}
+	public void setLayoutStatusService(LayoutStatusService layoutStatusService) {
+		this.layoutStatusService = layoutStatusService;
+	}
 	public LayoutVersion getLayoutVersion() {
 		return layoutVersion;
 	}
-
 	public void setLayoutVersion(LayoutVersion layoutVersion) {
 		this.layoutVersion = layoutVersion;
 	}
-
 	public void setLayoutTypes(List<SelectItem> layoutTypes) {
 		this.layoutTypes = layoutTypes;
 	}
-
 	public void setRowTypes(List<SelectItem> rowTypes) {
 		this.rowTypes = rowTypes;
 	}
-
 	public void setLayoutVersions(List<SelectItem> layoutVersions) {
 		this.layoutVersions = layoutVersions;
 	}
-
 	public Layout getLayout() {
 		return layout;
 	}
-
 	public void setLayout(Layout layout) {
 		this.layout = layout;
 	}
-
 	public List<Layout> getLayouts() {
 		return layouts;
 	}
-
 	public void setLayouts(List<Layout> layouts) {
 		this.layouts = layouts;
 	}
