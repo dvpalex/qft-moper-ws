@@ -10,38 +10,36 @@
 <h:body>
 				<h1>Layout Type</h1>
 				<h:form id="form1">
-					<h:panelGrid columns="4" style="border: 0; background: none; padding: 0px; width: 500px">
-							<h:outputText value="Description:"/>
+					<h:panelGrid columns="2" style="border: 0; background: none; padding: 0px; width: 500px">
+							<h:outputText value="Descrição"/>
 							<p:inputText id="description" value="#{layoutTypeBean.layoutType.descr}" size="70"/>										
-							<p:commandButton id="search" value="Search" icon="ui-icon-search" action="#{layoutTypeBean.search}" update=":contentform"/>
-							<p:commandButton id="add" value="Add" icon="ui-icon-plus" action="#{layoutTypeBean.add}" update=":contentform"/>								
+							<p:commandButton id="search" value="Pesquisar" icon="ui-icon-search" action="#{layoutTypeBean.search}" update=":contentform"/>
+							<p:commandButton id="add" value="Adicionar" icon="ui-icon-plus" action="#{layoutTypeBean.add}" update=":contentform"/>								
 					</h:panelGrid>
 				</h:form>
 				
 				<h:form id="form2">
 														
-					<p:dataTable var="type" value="#{layoutTypeBean.types}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >				
-						<p:column headerText="ID" width="80">  
-            				<h:outputText value="#{type.layoutTypeId}"/>
+					<p:dataTable var="version" value="#{layoutTypeBean.versions}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >				
+						<p:column headerText="ID" width="90">  
+            				<h:outputText value="#{version.layoutType.layoutTypeId}"/>
         				</p:column>
-        				<p:column headerText="Name">  
-            				<h:outputText value="#{type.name}"/>
+        				<p:column headerText="Nome" width="250">  
+            				<h:outputText value="#{version.layoutType.name}"/>
         				</p:column> 
-						<p:column headerText="Description">  
-            				<h:outputText value="#{type.descr}"/>
-        				</p:column>  
-						<p:column headerText="" width="40">					
-							<p:commandButton value="Edit" action="#{layoutTypeBean.edit}" icon="ui-icon-pencil" update=":contentform"> 
-								<f:setPropertyActionListener value="#{type}" target="#{layoutTypeBean.layoutType}" />
+						<p:column headerText="Descrição">  
+            				<h:outputText value="#{version.layoutType.descr}"/>
+        				</p:column>
+        				<p:column headerText="Versão" width="40">  
+            				<h:outputText value="#{version.versionLayout}"/>
+        				</p:column>
+						<p:column headerText="" width="30">					
+							<p:commandButton action="#{layoutTypeBean.edit}" icon="ui-icon-search" update=":contentform" title="Visualizar"> 
+								<f:setPropertyActionListener value="#{version}" target="#{layoutTypeBean.layoutVersion}" />
 							</p:commandButton>	
 						</p:column>			
 					</p:dataTable>		
-					
-					<p:confirmDialog global="true" showEffect="fade" id="delete">
-        				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":contentform"/>  
-       					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
-    				</p:confirmDialog>
-    					
+												
 				</h:form>						
 	
 </h:body> 

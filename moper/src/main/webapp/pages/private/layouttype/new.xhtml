@@ -16,8 +16,8 @@
     		<p:outputLabel for="descrition" value="Description: "/>  
 			<p:inputText id="descrition" value="#{layoutTypeBean.layoutType.descr}" maxlength="80" size="70" required="true" requiredMessage="* The description field is required."/>
     		<f:facet name="footer">   			
-				<p:commandButton value="Cancel" type="submit" action="#{layoutTypeBean.list}" update=":contentform" icon="ui-icon-arrowreturnthick-1-w" immediate="true" style="float:right"/>  
-				<p:commandButton value="Configure Layout" type="submit" action="#{layoutBean.configureLayout}" update=":contentform" icon="ui-icon-check" style="float:right"/>
+				<p:commandButton value="Cancel" type="submit" action="#{layoutTypeBean.list}" update=":contentform" immediate="true" style="float:right"/>  
+				<p:commandButton value="Configure Layout" type="submit" action="#{layoutBean.configureLayout}" update=":contentform" style="float:right"/>
     		</f:facet>  
 		</p:panelGrid>  
 		
