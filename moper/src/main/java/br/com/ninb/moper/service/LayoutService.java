@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ninb.moper.model.Layout;
+import br.com.ninb.moper.model.LayoutType;
 import br.com.ninb.moper.model.LayoutVersion;
 
 @Configurable
@@ -28,7 +29,7 @@ public class LayoutService
 		 .setParameter(1, description);
 		  return query.getSingleResult();
 	}
-		
+	
 	public List<Layout> listAll()
 	{
 		  TypedQuery<Layout> query = em.createQuery("from Layout l order by l.rowType.descr", Layout.class);
@@ -42,10 +43,11 @@ public class LayoutService
 		  return query.getResultList();
 	}
 	
-	public List<Layout> listByLayoutTypeId(Long layoutTypeId)
+	public List<Layout> listByLayoutVersion(LayoutVersion layoutVersion)
 	{
-		TypedQuery<Layout> query = em.createQuery("from Layout l where l.layoutVersion.layoutType.layoutTypeId = ?", Layout.class)
-		.setParameter(1, layoutTypeId);
+		TypedQuery<Layout> query = em.createQuery("from Layout l where l.layoutVersion.layoutType.layoutTypeId = ? and l.layoutVersion.layoutVersionId = ? order by l.indexField desc", Layout.class)
+		.setParameter(1, layoutVersion.getLayoutType().getLayoutTypeId())
+		.setParameter(2, layoutVersion.getLayoutVersionId());
 		return query.getResultList();
 	}
 	
@@ -91,13 +93,30 @@ public class LayoutService
 	@Transactional
 	public void save(Layout layout)
 	{
-		if(layout.getLayoutId() == null){	
+		if(layout.getLayoutId() == null)
+		{	
 			layout.getLayoutVersion().setGenerateDate(new Date());
-			layout.getLayoutVersion().setVersion(1L);
-			layout.getLayoutVersion().setLayoutVersionId(null);
+			
+			/* Para evitar os erros de detached entity passed to persist */
+			if(layout.getLayoutVersion().getLayoutType().getLayoutTypeId() != null)
+			{
+				LayoutType l = em.find(LayoutType.class, layout.getLayoutVersion().getLayoutType().getLayoutTypeId());
+				layout.getLayoutVersion().setLayoutType(l);
+				
+				/* Para evitar id to load is required for loading */
+				if(layout.getLayoutVersion().getLayoutVersionId() != null)
+				{
+					LayoutVersion v = em.find(LayoutVersion.class, layout.getLayoutVersion().getLayoutVersionId());
+
+					if(v != null){
+						layout.setLayoutVersion(v);
+					}
+				}
+			}
+			
 			em.persist(layout);
+						
 		}else{
-			em.flush();
 			em.merge(layout);
 		}	  
 	}
@@ -106,7 +125,7 @@ public class LayoutService
 	public void saveAll(List<Layout> layouts)
 	{
 		for(Layout layout : layouts)
-		{			
+		{		
 			save(layout);
 		}  
 	}

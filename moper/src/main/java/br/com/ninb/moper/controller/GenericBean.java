@@ -23,9 +23,11 @@ import br.com.ninb.moper.service.RowTypeService;
 public class GenericBean
 {
 	protected static LayoutType layoutType;
-	protected static List<Layout> layouts;
+	protected static List<Layout> layouts;	
+	protected static Layout layout;
+	protected static LayoutVersion layoutVersion;
+	protected List<LayoutVersion> versions;
 	
-	protected Layout layout;
 	private List<SelectItem> layoutTypes;
 	private List<SelectItem> rowTypes;
 	private List<SelectItem> layoutVersions;
@@ -39,9 +41,7 @@ public class GenericBean
 	protected RowTypeService rowTypeService;
 	@Autowired
 	protected LayoutStatusService layoutStatusService;
-	
-	private LayoutVersion layoutVersion;
-	
+
 	public List<SelectItem> getRowTypes()
 	{
 		rowTypes = new ArrayList<SelectItem>();
@@ -86,11 +86,10 @@ public class GenericBean
 		push("/pages/private/layout/list");
 	}
 	
-	public void resetLayout(LayoutType layoutType)
+	public void resetLayout(LayoutVersion layoutVersion)
 	{
 		layout = new Layout();
-		layout.setLayoutVersion(new LayoutVersion());
-		layout.getLayoutVersion().setLayoutType(layoutType);
+		layout.setLayoutVersion(layoutVersion);
 		layout.setRowType(new RowType());
 	}
 
@@ -130,9 +129,6 @@ public class GenericBean
 	public LayoutVersion getLayoutVersion() {
 		return layoutVersion;
 	}
-	public void setLayoutVersion(LayoutVersion layoutVersion) {
-		this.layoutVersion = layoutVersion;
-	}
 	public void setLayoutTypes(List<SelectItem> layoutTypes) {
 		this.layoutTypes = layoutTypes;
 	}
@@ -145,19 +141,56 @@ public class GenericBean
 	public Layout getLayout() {
 		return layout;
 	}
-	public void setLayout(Layout layout) {
-		this.layout = layout;
-	}
 	public List<Layout> getLayouts() {
 		return layouts;
-	}
-	public void setLayouts(List<Layout> layouts) {
-		this.layouts = layouts;
 	}
 	public LayoutType getLayoutType() {
 		return layoutType;
 	}
+	public LayoutService getLayoutService() {
+		return layoutService;
+	}
+	public void setLayoutService(LayoutService layoutService) {
+		this.layoutService = layoutService;
+	}
+	public LayoutTypeService getLayoutTypeService() {
+		return layoutTypeService;
+	}
+	public void setLayoutTypeService(LayoutTypeService layoutTypeService) {
+		this.layoutTypeService = layoutTypeService;
+	}
+	public LayoutVersionService getLayoutVersionService() {
+		return layoutVersionService;
+	}
+	public void setLayoutVersionService(LayoutVersionService layoutVersionService) {
+		this.layoutVersionService = layoutVersionService;
+	}
+	public RowTypeService getRowTypeService() {
+		return rowTypeService;
+	}
+	public void setRowTypeService(RowTypeService rowTypeService) {
+		this.rowTypeService = rowTypeService;
+	}
+	@SuppressWarnings("static-access")
 	public void setLayoutType(LayoutType layoutType) {
 		this.layoutType = layoutType;
+	}
+	@SuppressWarnings("static-access")
+	public void setLayouts(List<Layout> layouts) {
+		this.layouts = layouts;
+	}
+	@SuppressWarnings("static-access")
+	public void setLayout(Layout layout) {
+		this.layout = layout;
+	}
+	@SuppressWarnings("static-access")
+	public void setLayoutVersion(LayoutVersion layoutVersion) {
+		this.layoutVersion = layoutVersion;
+	}
+	public List<LayoutVersion> getVersions() {
+		return versions;
+	}
+	public void setVersions(List<LayoutVersion> versions) {
+		this.versions = versions;
 	}
 }

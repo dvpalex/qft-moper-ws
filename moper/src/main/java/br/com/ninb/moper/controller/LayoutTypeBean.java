@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import br.com.ninb.moper.model.LayoutType;
+import br.com.ninb.moper.model.LayoutVersion;
 import br.com.ninb.moper.service.LayoutTypeService;
 
 @ManagedBean(name="layoutTypeBean")
@@ -14,8 +15,7 @@ import br.com.ninb.moper.service.LayoutTypeService;
 @Component
 public class LayoutTypeBean extends GenericBean
 {
-	//private LayoutType layoutType;
-	private List<LayoutType> types;
+	private List<LayoutType> types;	
 	
 	@Autowired
 	private LayoutTypeService service;
@@ -51,18 +51,26 @@ public class LayoutTypeBean extends GenericBean
 	
 	public void list()
 	{
-		types = service.listAll();
+		versions = layoutVersionService.listAll();
 		layoutType = new LayoutType();
 		push("/pages/private/layouttype/list");
 	}
 	
 	public void edit() 
 	{ 
-		resetLayout(layoutType);
-		layouts = layoutService.listByLayoutTypeId(layoutType.getLayoutTypeId());		
+		layouts = layoutService.listByLayoutVersion(layoutVersion);
+		resetLayout(layoutVersion);		
 		push("/pages/private/layout/edit");
 	}
 	
+	public List<LayoutVersion> getVersions() {
+		return versions;
+	}
+
+	public void setVersions(List<LayoutVersion> versions) {
+		this.versions = versions;
+	}
+
 	public List<LayoutType> getTypes() {
 		return types;
 	}

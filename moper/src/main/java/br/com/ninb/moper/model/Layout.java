@@ -3,9 +3,6 @@ package br.com.ninb.moper.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,10 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
 
 @Entity
 @Table(name="LAYOUT")
@@ -57,17 +52,12 @@ public class Layout implements Serializable {
 	@Column(name = "COLNAME", nullable = false, length = 80)
 	private String colName;
 	
-	@ManyToOne
-	@JoinColumn(name = "LAYOUTSTATUS_ID", nullable = true)
-	private LayoutStatus layoutStatus;
+	@Column(name = "ATIVO", nullable = false, length = 80)
+	private Integer ativo;
 		
 	@ManyToOne
 	@JoinColumn(name = "ROWTYPE_ID", nullable = false)
 	private RowType rowType;
-	
-	//@ManyToOne
-	//@JoinColumn(name = "LAYOUTTYPE_ID", nullable = false)
-	//private LayoutType layoutType;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "LAYOUTVERSION_ID", nullable = false)
@@ -144,12 +134,12 @@ public class Layout implements Serializable {
 		this.colName = colName;
 	}
 
-	public LayoutStatus getLayoutStatus() {
-		return layoutStatus;
+	public Integer getAtivo() {
+		return ativo;
 	}
 
-	public void setLayoutStatus(LayoutStatus layoutStatus) {
-		this.layoutStatus = layoutStatus;
+	public void setAtivo(Integer ativo) {
+		this.ativo = ativo;
 	}
 
 	public RowType getRowType() {
@@ -159,14 +149,6 @@ public class Layout implements Serializable {
 	public void setRowType(RowType rowType) {
 		this.rowType = rowType;
 	}
-
-	//public LayoutType getLayoutType() {
-	//	return layoutType;
-	//}
-
-	//public void setLayoutType(LayoutType layoutType) {
-	//	this.layoutType = layoutType;
-	//}
 
 	public LayoutVersion getLayoutVersion() {
 		return layoutVersion;

@@ -5,6 +5,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 import org.springframework.stereotype.Component;
 
@@ -19,36 +20,29 @@ public class MenuBean {
 		
 		model = new DefaultMenuModel();
 	
+		DefaultSubMenu subMenu = null;
 		DefaultMenuItem subItem = null;
-		
-		/* Dicionario Menu */
-		subItem = new DefaultMenuItem("Layout");
-		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{layoutBean.list}");
-		subItem.setAjax(false);
-		
-		model.addElement(subItem);
+			
+		subMenu = new DefaultSubMenu("Dicionário");
+		subMenu.setIcon("ui-icon-bullet");
+			subItem = new DefaultMenuItem("Layout Type");
+			subItem.setIcon("ui-icon-bullet");
+			subItem.setCommand("#{layoutTypeBean.list}");
+			subItem.setAjax(false);		
+		subMenu.addElement(subItem);
+			subItem = new DefaultMenuItem("Row Type");
+			subItem.setIcon("ui-icon-bullet");
+			subItem.setCommand("#{rowTypeBean.list}");
+			subItem.setAjax(false);	
+		subMenu.addElement(subItem);
+			subItem = new DefaultMenuItem("Output Register");
+			subItem.setIcon("ui-icon-bullet");
+			subItem.setCommand("#{outputRegisterBean.list}");
+			subItem.setAjax(false);	
+		subMenu.addElement(subItem);
+	
+		model.addElement(subMenu);
 
-		subItem = new DefaultMenuItem("Layout Type");
-		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{layoutTypeBean.list}");
-		subItem.setAjax(false);
-		
-		model.addElement(subItem);
-		
-		subItem = new DefaultMenuItem("RowType");
-		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{rowTypeBean.list}");
-		subItem.setAjax(false);
-		
-		model.addElement(subItem);
-		
-		subItem = new DefaultMenuItem("Output Register");
-		subItem.setIcon("ui-icon-bullet");
-		subItem.setCommand("#{outputRegisterBean.list}");
-		subItem.setAjax(false);
-		
-		model.addElement(subItem);
 	}
 
 	public MenuModel getModel() {

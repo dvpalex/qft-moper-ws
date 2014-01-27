@@ -28,6 +28,13 @@ public class LayoutVersionService
 		return query.getResultList();
 	}
 	
+	public LayoutVersion selectById(Long id)
+	{
+		  TypedQuery<LayoutVersion> query = em.createQuery("from LayoutVersion where layoutVersionId = ?", LayoutVersion.class)
+		 .setParameter(1, id);
+		  return query.getSingleResult();
+	}
+	
 	public LayoutVersion selectByDesc(String description)
 	{
 		  TypedQuery<LayoutVersion> query = em.createQuery("from LayoutVersion where descr = ?", LayoutVersion.class)

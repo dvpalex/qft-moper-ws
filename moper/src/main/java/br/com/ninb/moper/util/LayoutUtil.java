@@ -1,6 +1,8 @@
 package br.com.ninb.moper.util;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import br.com.ninb.moper.model.Layout;
 
 public class LayoutUtil 
@@ -11,13 +13,13 @@ public class LayoutUtil
 				int begin = layoutDeleted.getBeginField();
 			
 				/* Remover o layout a ser excluido da lista de layouts */
-				for(int x=0 ; x < layouts.size() ; x++)
+				/*for(int x=0 ; x < layouts.size() ; x++)
 				{
 					if(layouts.get(x).getIndexField() == layoutDeleted.getIndexField()){
 						layouts.remove(x);
 						break;
 					}		
-				}
+				}*/
 						
 				/* Organizar os intervalos de begin e end */
 				for(Layout layout : layouts)
@@ -69,5 +71,30 @@ public class LayoutUtil
 			ex.printStackTrace();
 			return layouts;
 		}
+	}
+
+	public List<Layout> updateData(List<Layout> layouts, Layout layout)
+	{
+		/* Agrupar os Layouts por RowType */
+		List<Layout> listLayoutRowType = new ArrayList<Layout>();
+		
+		for(Layout obj : layouts)
+		{
+			if(obj.getRowType().getRowTypeId() == layout.getRowType().getRowTypeId()){
+				listLayoutRowType.add(obj);
+			}
+		}
+		
+		/* Para cada Layout da lista, verificar qual ponto de iniciar o rearranjo */
+		for(Layout obj : listLayoutRowType)
+		{
+			if(obj.getIndexField() >= layout.getIndexField() + 1)
+			{
+				obj.setBeginField(layout.getEndField() + 1);
+				obj.setEndField(obj.getLenghtField()+obj.getBeginField());
+			}
+		}
+		
+		return listLayoutRowType;
 	}
 }
