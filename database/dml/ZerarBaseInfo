@@ -1,4 +1,4 @@
 Executar os seguintes scripts na ordem que se segue:
-1. deleteLayout_Version_Type
-2. InsertRowType
-3. InsertLayoutGrafica
+1. Delete_Layout_LayoutVersion_LayoutType.sql
+2. InsertRowType.sql
+3. InsertLayoutGrafica.sql
